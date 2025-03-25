@@ -43,9 +43,277 @@ $gradient-bottom-left: linear-gradient(315deg, #272727ff, #26a8d3ff, #d6dbb2ff, 
 $gradient-radial: radial-gradient(#272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
 */
 
-
-
 /*
 Exemple de bouton cool à insérer 
 https://uiverse.io/Galahhad/ancient-emu-61
 */
+
+/* PARAMETRES GLOBALES */
+/*#region*/
+* {
+  /* PALLETTE DE COULEUR */
+  --color-text-b: rgb(0, 0, 0);
+  --color-text-w: rgb(255, 255, 255);
+  --color-raisin-black: rgba(39, 39, 39, 1);
+  --color-grey: rgba(153, 153, 153);
+  --color-cyan: rgb(25, 130, 150);
+  --color-vanilla: rgba(214, 219, 178, 1);
+  --color-flax: rgba(227, 217, 133, 1);
+
+  /* GROSSEUR DE TEXTE  */
+  --font-size-xxlarge: 5.5rem;
+  --font-size-xlarge: 3.5rem;
+  --font-size-large: 3rem;
+  --font-size-medium: 2.25rem;
+  --font-size-small: 1.75rem;
+  --font-size-xsmall: 1.25rem;
+
+  /* PARAMETRES GLOBALE */
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  box-sizing: border-box;
+  text-wrap: balance;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  /* Specifie un ratio de mon "font-size" me permet de lié mes unité "rem" 
+   * pour rendre toute App plus responsive.
+   * PAS CERTAIN DE COMMENT L'UTILISER EFFICACEMENT. */
+  font-size: 100%;
+  background-image: url("/Assets/wp8778420-dark-code-wallpapers.jpg");
+}
+/*#endregion*/
+
+/* CLASSES PRIMAIRES */
+/*#region*/
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#main-container {
+  width: 100%;
+  height: 100%;
+  margin-top: 2rem;
+  padding: 2rem 0;
+
+  border: 0.25rem solid var(--color-raisin-black);
+  border-radius: 0.5rem;
+}
+
+#main-container > * {
+  width: 100%;
+}
+/*#endregion*/
+
+/* CLASSES SECONDAIRES */
+/*#region*/
+/*#endregion*/
+
+/* LISTE DE CLASSES GENERIQUES*/
+/*#region*/
+.text-xxl {
+  font-size: var(--font-size-xxlarge);
+  margin: 1rem 2rem;
+}
+
+.text-xl {
+  font-size: var(--font-size-xlarge);
+  margin-bottom: 1.5rem;
+}
+
+.text-large {
+  font-size: var(--font-size-large);
+}
+
+.text-medium {
+  font-size: var(--font-size-medium);
+  margin-bottom: 1rem;
+}
+
+.text-small {
+  font-size: var(--font-size-small);
+}
+
+.text-xsmall {
+  font-size: var(--font-size-xsmall);
+}
+
+.text-center {
+  text-align: center;
+  align-items: center;
+}
+
+.display-none {
+  display: none;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.color-raisinblack {
+  color: var(--color-raisin-black);
+}
+
+.color-grey {
+  color: var(--color-grey);
+}
+.background-grey {
+  background-color: var(--color-grey);
+}
+
+.color-cyan {
+  color: var(--color-cyan);
+}
+
+.color-vanilla {
+  color: var(--color-vanilla);
+}
+
+.color-flax {
+  color: var(--color-flax);
+}
+/*#endregion */
+
+/* CLASSES DE BUTTONS */
+/*#region*/
+.btn {
+  width: 20rem;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+
+  font-size: var(--font-size-medium);
+  text-align: center;
+  text-decoration: none;
+
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--color-green-two);
+  background-color: var(--color-green-one);
+}
+
+.btn:hover {
+  cursor: pointer;
+  box-shadow: 0 0.5em 1em var(--color-green-three);
+  background-color: var(--color-green-two);
+  transform: translateY(-0.1rem);
+}
+
+.small-btn {
+  width: 10rem;
+  padding: 0.25em 0;
+  margin: 0.1em 0.25em;
+
+  font-size: var(--font-size-small);
+  text-align: center;
+  text-decoration: none;
+
+  color: var(--color-green-three);
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--color-green-two);
+  background-color: var(--color-green-one);
+}
+
+.small-btn:hover {
+  cursor: pointer;
+  background-color: var(--color-green-two);
+}
+
+.xsmall-btn {
+  width: fit-content;
+  padding: 0.25em 0.25em;
+
+  font-size: var(--font-size-xsmall);
+  text-align: center;
+  text-decoration: none;
+
+  color: var(--color-green-three);
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--color-green-two);
+  background-color: var(--color-green-one);
+}
+.xsmall-btn:hover {
+  cursor: pointer;
+  background-color: var(--color-green-two);
+}
+
+.disabled-btn {
+  width: 10rem;
+  padding: 0.25em 0em;
+
+  font-size: var(--font-size-small);
+  text-align: center;
+  text-decoration: none;
+
+  color: var(--color-green-three);
+  border-radius: 0.5rem;
+  border: 0.1rem solid var(--color-green-two);
+  background-color: var(--color-green-two);
+}
+/*#endregion*/
+
+/* CLASSES DE TYPE INPUT */
+/*#region*/
+.input-text {
+  width: 40%;
+  outline: none;
+
+  margin: 0.25em 0;
+  padding: 0.25em 0.25em;
+
+  border: 2px solid var(--color-cyan);
+  border-radius: 12px;
+  font-size: var(--font-size-small);
+}
+/*#endregion*/
+
+/* ANIMATIONS */
+/*#region*/
+.text-fade-in {
+  animation: textFade 300ms ease-out;
+}
+
+@keyframes textFade {
+  0% {
+    transform: translateX(-1em);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+/*#endregion*/

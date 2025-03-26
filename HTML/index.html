@@ -10,6 +10,7 @@
     <script defer src="/JavaScript/localSave.js"></script>
     <script defer src="/JavaScript/userKeybind.js"></script>
     <script defer src="/JavaScript/widgetManagement.js"></script>
+    <script defer src="/JavaScript/googleBar.js"></script>
 
     <title>Page d'acceuil</title>
 </head>
@@ -22,10 +23,14 @@
             <button id="ModeButton" class="btn">Mode</button>
             <button id="OpenButton" class="btn">Widget</button>
         </div>
+
         <div id="SearchBarContainer" class="flex-column align-center">
             <label id="SearchLabel" for="searchBar" class="text-large text-center color-cyan"> Hello world !</label>
-            <input id="SearchBar" class="input-text text-center color-cyan background-grey" type="text" name="searchBar"
-                placeholder="Rechercher ...">
+            <div class="flex-row">
+                <input id="GoogleBar" class="input-text text-center color-cyan background-grey" type="text" name="searchBar" placeholder="Recherche Google ...">
+                <button id="GoogleGo" class="btn" style="display: none;">Go</button>
+            </div>
+     
         </div>
     </div>
     <div id="ModalContainer">

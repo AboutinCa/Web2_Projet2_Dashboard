@@ -76,6 +76,7 @@ Alex Boutin (1063844) et Mathieu Gagne-Ouellet (6349821)
 ## Structure des fichiers prévue
 
 - CSS/
+  - global.css
   - styles.css
 - HTML/
   - index.html

@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded",() => {
     function submitGoogleSearch() {
         const googleQuery = googleInput.value.trim();
         if (googleQuery !== "") {
-            const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            const url = `https://www.google.com/search?q=${encodeURIComponent(googleQuery)}`;
             window.open(url, "_blank");
         }
     }

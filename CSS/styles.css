@@ -97,27 +97,76 @@ body {
   align-items: center;
 }
 
-#main-container {
+#MainContainer {
   width: 100%;
   height: 100%;
-  margin-top: 2rem;
-  padding: 2rem 0;
-
-  border: 0.25rem solid var(--color-raisin-black);
-  border-radius: 0.5rem;
 }
 
-#main-container > * {
+#MainContainer > * {
   width: 100%;
 }
+
+#ModalContainer {
+  width: 98vw;
+  height: 98vh;
+  opacity: 0;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  position: absolute;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#Modal {
+  background-color: var(--color-raisin-black);
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  padding: 20px 20px;
+  width: 100%;
+  height: 90%;
+  text-align: center;
+}
+
+#ModalContainer.show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
 /*#endregion*/
 
 /* CLASSES SECONDAIRES */
 /*#region*/
+#TopButtonBar {
+  padding: 20px 20px;
+}
+
+#SearchBarContainer {
+  height: 100%;
+}
+
+#WidgetContainer {
+  width: 100%;
+  height: 75%;
+  padding: 20px 20px;
+}
+
+.widget {
+  width: 10%;
+  height: 100%;
+  border: 2px solid var(--color-cyan);
+}
 /*#endregion*/
 
 /* LISTE DE CLASSES GENERIQUES*/
 /*#region*/
+.hidden {
+  display: none;
+}
+
 .text-xxl {
   font-size: var(--font-size-xxlarge);
   margin: 1rem 2rem;
@@ -164,15 +213,6 @@ body {
   flex-direction: row;
 }
 
-.flex-center {
-  justify-content: center;
-  align-items: center;
-}
-
-.wrap {
-  flex-wrap: wrap;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -183,6 +223,19 @@ body {
 
 .justify-evenly {
   justify-content: space-evenly;
+}
+
+.justify-right {
+  justify-content: right;
+}
+
+.align-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.wrap {
+  flex-wrap: wrap;
 }
 
 .color-raisinblack {
@@ -207,28 +260,29 @@ body {
 .color-flax {
   color: var(--color-flax);
 }
+
 /*#endregion */
 
 /* CLASSES DE BUTTONS */
 /*#region*/
 .btn {
-  width: 20rem;
-  padding: 0.5rem 0;
+  width: fit-content;
+  padding: 0.5rem 0.5rem;
   margin-bottom: 1rem;
 
-  font-size: var(--font-size-medium);
+  font-size: var(--font-size-small);
   text-align: center;
   text-decoration: none;
 
   border-radius: 0.5rem;
-  border: 0.1rem solid var(--color-green-two);
-  background-color: var(--color-green-one);
+  border: 0.1rem solid var(--color-cyan);
+  background-color: var(--color-grey);
 }
 
 .btn:hover {
   cursor: pointer;
-  box-shadow: 0 0.5em 1em var(--color-green-three);
-  background-color: var(--color-green-two);
+  box-shadow: 0 0em 2em var(--color-cyan);
+  background-color: var(--color-cyan);
   transform: translateY(-0.1rem);
 }
 

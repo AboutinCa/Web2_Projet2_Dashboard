@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/CSS/styles.css">
-    <script src="/JavaScript/dashboard.js"></script>
-    <script src="/JavaScript/experienceSystem.js"></script>
-    <script src="/JavaScript/localSave.js"></script>
-    <script src="/JavaScript/userKeybind.js"></script>
-    <script src="/JavaScript/widgetManagement.js"></script>
+    <script defer src="/JavaScript/dashboard.js"></script>
+    <script defer src="/JavaScript/experienceSystem.js"></script>
+    <script defer src="/JavaScript/localSave.js"></script>
+    <script defer src="/JavaScript/userKeybind.js"></script>
+    <script defer src="/JavaScript/widgetManagement.js"></script>
 
     <title>Page d'acceuil</title>
 </head>
@@ -17,11 +17,32 @@
 </header>
 
 <body>
-    <div id="main-container" class="flex-row">
-        <div id="search-bar-container" class="flex-column flex-center">
-            <label for="searchBar" class="text-large text-center color-cyan"> Hello world !</label>
-            <input id="searchBar" class="input-text text-center color-cyan background-grey" type="text" name="searchBar"
+    <div id="MainContainer" class="flex-column">
+        <div id="TopButtonBar" class="flex-row justify-right">
+            <button id="ModeButton" class="btn">Mode</button>
+            <button id="OpenButton" class="btn">Widget</button>
+        </div>
+        <div id="SearchBarContainer" class="flex-column align-center">
+            <label id="SearchLabel" for="searchBar" class="text-large text-center color-cyan"> Hello world !</label>
+            <input id="SearchBar" class="input-text text-center color-cyan background-grey" type="text" name="searchBar"
                 placeholder="Rechercher ...">
+        </div>
+    </div>
+    <div id="ModalContainer">
+        <div id="Modal">
+            <h1 class="text-large">Voici notre modal</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, atque. Quam harum laboriosam corporis
+                voluptates ex assumenda aspernatur pariatur, velit qui earum distinctio laudantium quia, quasi
+                sapiente
+                sed obcaecati excepturi reiciendis! Necessitatibus id repellendus, aut dicta soluta quod ipsa
+                voluptates
+                minima sit a consequuntur perspiciatis, magni beatae corrupti? Illo, alias.</p>
+
+            -
+
+            <button id="CloseButton" class="btn">
+                Close
+            </button>
         </div>
     </div>
 </body>

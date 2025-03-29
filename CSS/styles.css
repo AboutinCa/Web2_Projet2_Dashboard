@@ -81,7 +81,7 @@ https://uiverse.io/Galahhad/ancient-emu-61
    * pour rendre toute App plus responsive.
    * PAS CERTAIN DE COMMENT L'UTILISER EFFICACEMENT. */
   font-size: 100%;
-  background-image: url("/Assets/wp8778420-dark-code-wallpapers.jpg");
+  background-color: var(--color-raisin-black);
 }
 /*#endregion*/
 
@@ -107,12 +107,12 @@ body {
 }
 
 #ModalContainer {
-  width: 98vw;
-  height: 98vh;
+  width: 100vw;
+  height: 100vh;
   opacity: 0;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 
@@ -126,8 +126,7 @@ body {
 }
 
 #Modal {
-  height: 98vh;
-
+  height: 100vh;
   background-color: var(--color-raisin-black);
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -152,13 +151,19 @@ body {
   height: 100%;
 }
 
-#WidgetContainer {
+#Dashboard {
   height: 100%;
   padding: 20px 20px;
 
   display: grid;
   gap: 8px 0px;
-  grid: 50% 50% / 20% 40% 20% 10% 10%;
+  grid: 8% 46% 46% / 20% 40% 20% 10% 10%;
+}
+
+#NavBar {
+  grid-area: 1 / 5 / 2 / 5;
+  justify-self: end;
+  align-self: center;
 }
 
 .widget {
@@ -166,6 +171,21 @@ body {
   border: 2px solid var(--color-cyan);
   border-radius: 8px;
 }
+
+.widget-header {
+  height: 10%;
+  background-color: var(--color-grey);
+  border-bottom: 2px solid var(--color-cyan);
+  border-radius: 8px 8px 0 0;
+}
+
+.widget-title {
+  font-size: var(--font-size-small);
+  color: var(--color-cyan);
+  margin: 0;
+  padding: 0.5em 0.5em;
+}
+
 /*#endregion*/
 
 /* LISTE DE CLASSES GENERIQUES*/
@@ -274,8 +294,7 @@ body {
 /*#region*/
 .btn {
   width: fit-content;
-  padding: 0.5rem 0.5rem;
-  margin-bottom: 1rem;
+  padding: 0.25em 0.25em;
 
   font-size: var(--font-size-small);
   text-align: center;
@@ -302,10 +321,10 @@ body {
   text-align: center;
   text-decoration: none;
 
-  color: var(--color-green-three);
   border-radius: 0.5rem;
-  border: 0.1rem solid var(--color-green-two);
-  background-color: var(--color-green-one);
+  border: 0.1rem solid var(--color-cyan);
+  background-color: var(--color-raisin-black);
+  color: var(--color-cyan);
 }
 
 .small-btn:hover {
@@ -349,10 +368,9 @@ body {
 /* CLASSES DE TYPE INPUT */
 /*#region*/
 .input-text {
-  width: 40%;
+  width: 100%;
   outline: none;
 
-  margin: 0.25em 0;
   padding: 0.25em 0.25em;
 
   border: 2px solid var(--color-cyan);
@@ -364,7 +382,7 @@ body {
 /* ANIMATIONS */
 /*#region*/
 .text-fade-in {
-  animation: textFade 300ms ease-out;
+  animation: textFade 10000ms ease-out;
 }
 
 @keyframes textFade {

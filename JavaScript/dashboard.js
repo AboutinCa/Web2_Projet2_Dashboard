@@ -1,17 +1,18 @@
-const OpenButton = document.getElementById("OpenButton");
+const MainContainer = document.getElementById("MainContainer");
+const Modal = document.getElementById("Modal");
+const OpenboardButton = document.getElementById("OpenboardButton");
 const CloseModalBtn = document.getElementById("CloseModalBtn");
 const ModeButton = document.getElementById("ModeButton");
-const ModalContainer = document.getElementById("ModalContainer");
 
-OpenButton.addEventListener("click", () => {
-  ModalContainer.classList.add("show");
-  OpenButton.classList.add("hidden");
+OpenboardButton.addEventListener("click", () => {
+  Modal.classList.add("show");
+  OpenboardButton.classList.add("hidden");
   ModeButton.classList.add("hidden");
 });
 
 CloseModalBtn.addEventListener("click", () => {
-  ModalContainer.classList.remove("show");
-  OpenButton.classList.remove("hidden");
+  Modal.classList.remove("show");
+  OpenboardButton.classList.remove("hidden");
   ModeButton.classList.remove("hidden");
 });
 

@@ -1,67 +1,119 @@
 import CreateElement from "../Utilities/Obj_CreateElement.js";
 
-// Je vais me faire une class de widget qui va contenir les fonctions de base pour créer un widget, le rendre draggable et resizable.
-// Je vais aussi ajouter une fonction pour ajouter un triangle pour redimensionner le widget.
-
-const widget = [];
-
 export class Widget {
-  constructor(parentNode, index, id, width, height) {
-    this.parentNode = parentNode;
-    this.index = index;
-    this.id = id;
-    this.width = width;
-    this.height = height;
+  constructor(Index, Id, ParentNode) {
+    this.index = Index;
+    this.id = Id;
+    this.parentNode = ParentNode;
+    // this.width = width;
+    // this.height = height;
     // this.x = x;
     // this.y = y;
   }
-
   // Creation of the widget div
   // Liste globale de widgets pour pouvoir incrementer les id name
   createWidget() {
-    const widget = CreateElement.createDiv(
-      this.id,
-      "widget flex-row",
-      this.parentNode
-    );
-    widget.style.width = "fit-content";
-    widget.style.height = "fit-content";
-    widget.style.padding = "4px 4px";
-    widget.style.border = "1px solid var(--color-cyan)";
+    const widget = CreateElement.createDiv(this.id, "widget", this.parentNode);
 
-    // mainDiv.style.left = this.x + "px";
-    // mainDiv.style.top = this.y + "px";
-    const headerDiv = CreateElement.createDiv(
-      "HeaderDiv",
+    const header = CreateElement.createDiv( // Widget Header
+      `Header${this.index}`,
       "widget-header",
       widget
     );
 
-    CreateElement.createH3(
-      "HeaderTitle",
+    CreateElement.createH3( // Widget Title
+      `HeaderTitle${this.index}`,
       "widget-title",
       "Widget Title" + ` ${this.index}`,
-      headerDiv
-    );
+      header
+    ); 
 
-    const removeOnClick = () => {
+    const ButtonsDiv = CreateElement.createDiv( // Widget manage buttons 
+      `buttons${this.index}`,
+      `widget-buttons`,
+       header
+    )
+    const editOnClick = () => { // Callback function du Edit button
+      EditBtn.classList.add("hidden");
+      DragBtn.classList.remove("hidden");
+      ResizeBtn.classList.remove("hidden");
+      RemoveBtn.classList.remove("hidden");      
+      SaveBtn.classList.remove("hidden");      
+    }
+    const EditBtn = CreateElement.createButton( // Edit button
+      `EditBtn${this.index}`,
+      `widget-btn color-flax opacity50`,
+      ``,
+      editOnClick,
+      ButtonsDiv
+    )
+    EditBtn.innerHTML = `<span class="material-symbols-outlined">settings</span>`;
+
+
+    const draggableOnClick = () => { // TODO Callback function du Drag button 
+      console.log('draggable function to code');
+    }
+    const DragBtn = CreateElement.createButton( 
+      `DragBtn${this.index}`,
+      `widget-btn color-flax opacity50 fade-in hidden`,
+      ``,
+      draggableOnClick,
+      ButtonsDiv
+    )
+    DragBtn.innerHTML = `<span class="material-symbols-outlined">drag_pan</span>`;
+
+    const resizeOnClick = () => { // Callback function du Resize button
+      widget.style.resize = "both";
+    }
+    const ResizeBtn = CreateElement.createButton( // Resize button
+      `ResizeBtn${this.index}`,
+      `widget-btn color-flax opacity50 fade-in hidden`,
+      ``,
+      resizeOnClick,
+      ButtonsDiv
+    )
+    ResizeBtn.innerHTML = `<span class="material-symbols-outlined">aspect_ratio</span>`;
+
+    const removeOnClick = () => { // Callback function du Remove button
       widget.remove();
       this.index--;
     };
-
-    CreateElement.createButton(
+    const RemoveBtn = CreateElement.createButton( // Remove button
       `RemoveBtn${this.index}`,
-      "small-btn",
-      "X",
+      `widget-btn color-flax opacity50 fade-in hidden`,
+      ``,
       removeOnClick,
-      headerDiv
+      ButtonsDiv
     );
+    RemoveBtn.innerHTML = `<span class="material-symbols-outlined"> delete </span>`;
 
-    // Content of the widget
-    const contentDiv = CreateElement.createDiv(
-      "ContentDiv",
+    const saveOnClick = () => { // Callback function du Save button
+      EditBtn.classList.remove("hidden");
+      DragBtn.classList.add("hidden");
+      ResizeBtn.classList.add("hidden");
+      RemoveBtn.classList.add("hidden");      
+      SaveBtn.classList.add("hidden");   
+    }
+    const SaveBtn = CreateElement.createButton( // Save Button
+      `SaveBtn${this.index}`,
+      `widget-btn color-green opacity50 pulse hidden`,
+      ``,
+      saveOnClick,
+      ButtonsDiv
+    )
+    SaveBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
+
+    const widgetContent = CreateElement.createDiv( // Content div of the widget
+      `WidgetContent${this.index}`,
       "widget-content",
       widget
+    );
+
+    CreateElement.createPara( // Tempprary content 
+      `Content${this.index}`,
+      "widget-content text-xsmall",
+      `Widget Content here`,
+      widgetContent
     );
   }
 }

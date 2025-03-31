@@ -1,11 +1,14 @@
 #Dashboard {
   grid-area: DB;
+  position: relative;
   height: 100%;
+  width: 100%;
   margin: 0 0.25em;
   overflow: auto;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+
   /*TEST BORDER*/
   border: solid 2px var(--color-flax);
   border-radius: 0.25em;

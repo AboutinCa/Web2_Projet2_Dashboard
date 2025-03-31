@@ -10,12 +10,10 @@
     <link rel="stylesheet" href="/CSS/dashboard.css">
     <link rel="stylesheet" href="/Css/widget.css">
     <script defer type="module" src="/JavaScript/widgetManagement.js"></script>
-    <script defer src="/JavaScript/dashboard.js"></script>
+    <script defer src="/JavaScript/index.js"></script>
     <script defer src="/JavaScript/experienceSystem.js"></script>
     <script defer src="/JavaScript/localSave.js"></script>
     <script defer src="/JavaScript/userKeybind.js"></script>
-    <script defer src="/JavaScript/googleBar.js"></script>
-
     <title>Page d'accueil</title>
 </head>
 <header>
@@ -24,7 +22,7 @@
 <body>
     <div id="MainContainer" class="flex-column">
         <div id="TopButtonBar" class="flex-row justify-left">
-            <button id="OpenboardButton" class="DashboardButton">
+            <button id="OpenBoardButton" class="DashboardButton">
                 DASHBOARD
                 <div id="clip">
                     <div id="leftTop" class="corner"></div>
@@ -61,17 +59,17 @@
             </button>
         </div>
 
-        <div class="flex-column align-center">
-            <label id="SearchLabel" for="searchBar" class="text-large text-center color-flax"> Hello world !</label>
-
-            <div id="SearchBar" class="flex-row">
+        <div id="SearchBar">
+            <div id="InputTextBar">
                 <input id="GoogleBar" class="input-text text-center color-flax" type="text" name="searchBar"
-                    placeholder="Recherche Google ...">
-                <button id="GoogleGo" class="btn text-center">Go</button>
+                    placeholder="Search">
+                <button id="GoogleGo"><span class="material-symbols-outlined">
+                        search
+                    </span></button>
             </div>
-
+            <p id="SearchLabel" for="searchBar" class="text-small italic text-center color-flax"> Daily quote
+                generated... </p>
         </div>
-
     </div>
 
     <div id="Modal">
@@ -105,17 +103,18 @@
                     </li>
                 </ul>
             </div>
-            <div id="XPDisplayContainer">
-                <div id="XPLevelBadge"></div>
-                <div id="XPLabel"></div>
-                <div id="XPBarOuter">
-                    <div id="XPBarInner"></div>
-                </div>
+        </nav>
+        <div id="Dashboard">
+
+        </div>
+
+        <div id="XPDisplayContainer">
+            <div id="XPLevelBadge"></div>
+            <div id="XPLabel"></div>
+            <div id="XPBarOuter">
+                <div id="XPBarInner"></div>
             </div>
-            <button id="CloseButton" class="btn">
-                Close
-            </button>
-    </div>
+        </div>
     </div>
 </body>
 

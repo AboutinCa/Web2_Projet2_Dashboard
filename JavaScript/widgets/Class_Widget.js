@@ -1,10 +1,12 @@
 import CreateElement from "../Utilities/Obj_CreateElement.js";
 
+let isCurrentEdit = null;
 export class Widget {
   constructor(Index, Id, ParentNode) {
     this.index = Index;
     this.id = Id;
     this.parentNode = ParentNode;
+    this.isEditing = false;
     // this.width = width;
     // this.height = height;
     // this.x = x;
@@ -33,75 +35,88 @@ export class Widget {
       `widget-buttons`,
        header
     )
-    const editOnClick = () => { // Callback function du Edit button
-      EditBtn.classList.add("hidden");
-      DragBtn.classList.remove("hidden");
-      ResizeBtn.classList.remove("hidden");
-      RemoveBtn.classList.remove("hidden");      
-      SaveBtn.classList.remove("hidden");      
+
+    
+    this.editOnClick = () => { // Callback function du Edit button
+       if (isCurrentEdit && isCurrentEdit !== this) {
+        isCurrentEdit.saveOnClick(); // Auto-save du widget 
+      }
+  
+      this.isEditing = true;
+      isCurrentEdit = this;
+
+      this.EditBtn.classList.add("hidden");
+      this.DragBtn.classList.remove("hidden");
+      this.ResizeBtn.classList.remove("hidden");
+      this.RemoveBtn.classList.remove("hidden");      
+      this.SaveBtn.classList.remove("hidden");
     }
-    const EditBtn = CreateElement.createButton( // Edit button
+    this.EditBtn = CreateElement.createButton( // Edit button
       `EditBtn${this.index}`,
       `widget-btn color-flax opacity50`,
       ``,
-      editOnClick,
+      this.editOnClick,
       ButtonsDiv
     )
-    EditBtn.innerHTML = `<span class="material-symbols-outlined">settings</span>`;
-
+    this.EditBtn.innerHTML = `<span class="material-symbols-outlined">settings</span>`;
 
     const draggableOnClick = () => { // TODO Callback function du Drag button 
       console.log('draggable function to code');
     }
-    const DragBtn = CreateElement.createButton( 
+    this.DragBtn = CreateElement.createButton( 
       `DragBtn${this.index}`,
       `widget-btn color-flax opacity50 fade-in hidden`,
       ``,
       draggableOnClick,
       ButtonsDiv
     )
-    DragBtn.innerHTML = `<span class="material-symbols-outlined">drag_pan</span>`;
+    this.DragBtn.innerHTML = `<span class="material-symbols-outlined">drag_pan</span>`;
 
-    const resizeOnClick = () => { // Callback function du Resize button
+    this.resizeOnClick = () => { // Callback function du Resize button
       widget.style.resize = "both";
     }
-    const ResizeBtn = CreateElement.createButton( // Resize button
+    this.ResizeBtn = CreateElement.createButton( // Resize button
       `ResizeBtn${this.index}`,
       `widget-btn color-flax opacity50 fade-in hidden`,
       ``,
-      resizeOnClick,
+      this.resizeOnClick,
       ButtonsDiv
     )
-    ResizeBtn.innerHTML = `<span class="material-symbols-outlined">aspect_ratio</span>`;
+    this.ResizeBtn.innerHTML = `<span class="material-symbols-outlined">aspect_ratio</span>`;
 
-    const removeOnClick = () => { // Callback function du Remove button
+    this.removeOnClick = () => { // Callback function du Remove button
       widget.remove();
       this.index--;
     };
-    const RemoveBtn = CreateElement.createButton( // Remove button
+    this.RemoveBtn = CreateElement.createButton( // Remove button
       `RemoveBtn${this.index}`,
       `widget-btn color-flax opacity50 fade-in hidden`,
       ``,
-      removeOnClick,
+      this.removeOnClick,
       ButtonsDiv
     );
-    RemoveBtn.innerHTML = `<span class="material-symbols-outlined"> delete </span>`;
+    this.RemoveBtn.innerHTML = `<span class="material-symbols-outlined"> delete </span>`;
 
-    const saveOnClick = () => { // Callback function du Save button
-      EditBtn.classList.remove("hidden");
-      DragBtn.classList.add("hidden");
-      ResizeBtn.classList.add("hidden");
-      RemoveBtn.classList.add("hidden");      
-      SaveBtn.classList.add("hidden");   
+    this.saveOnClick = () => { // Callback function du Save button
+      if (!this.isEditing) return;
+      this.isEditing = false;
+      isCurrentEdit = null;
+
+      this.EditBtn.classList.remove("hidden");
+      this.DragBtn.classList.add("hidden");
+      this.ResizeBtn.classList.add("hidden");
+      this.RemoveBtn.classList.add("hidden");      
+      this.SaveBtn.classList.add("hidden");   
+      widget.style.resize = "none";
     }
-    const SaveBtn = CreateElement.createButton( // Save Button
+    this.SaveBtn = CreateElement.createButton( // Save Button
       `SaveBtn${this.index}`,
-      `widget-btn color-green opacity50 pulse hidden`,
+      `widget-save-btn color-green opacity50 pulse hidden`,
       ``,
-      saveOnClick,
+      this.saveOnClick,
       ButtonsDiv
     )
-    SaveBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
+    this.SaveBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
 
     const widgetContent = CreateElement.createDiv( // Content div of the widget
       `WidgetContent${this.index}`,

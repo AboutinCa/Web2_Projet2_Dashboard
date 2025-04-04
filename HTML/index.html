@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="/Css/sidebar.css">
     <link rel="stylesheet" href="/CSS/dashboard.css">
     <link rel="stylesheet" href="/Css/widget.css">
-    <script defer type="module" src="/JavaScript/widgetManagement.js"></script>
     <script defer src="/JavaScript/index.js"></script>
-    <script defer src="/JavaScript/experienceSystem.js"></script>
-    <script defer src="/JavaScript/localSave.js"></script>
     <script defer src="/JavaScript/userKeybind.js"></script>
+    <script defer type="module" src="/JavaScript/experienceSystem.js"></script>
+    <script defer type="module" src="/JavaScript/Utilities/Obj_localSave.js"></script>
+    <script defer type="module" src="/JavaScript/Widgets/00.Widget_Template.js"></script>
+    <script defer type="module" src="/JavaScript/Widgets/01.Todo_List.js"></script>
     <title>Page d'accueil</title>
 </head>
 <header>
@@ -90,16 +91,22 @@
             <div id="WidgetList">
                 <ul>
                     <li class="widget-icon">
-                        <a href="">W</a>
+                        <button id="NewWidget">🪙</button>
                     </li>
                     <li class="widget-icon">
-                        <a href="">W</a>
+                        <button id="ToDoList">📜</button>
                     </li>
                     <li class="widget-icon">
-                        <a href="">W</a>
+                        <button id="CryptoList">W</button>
                     </li>
                     <li class="widget-icon">
-                        <a href="">W</a>
+                        <button>W</button>
+                    </li>
+                    <li class="widget-icon">
+                        <button>W</button>
+                    </li>
+                    <li class="widget-icon">
+                        <button>W</button>
                     </li>
                 </ul>
             </div>

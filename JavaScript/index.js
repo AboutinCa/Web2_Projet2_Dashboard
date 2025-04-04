@@ -1,11 +1,9 @@
-// Useful links
 
 // Widgets
 // https://www.youtube.com/watch?v=1notwooXE58
 
 // Cool hover animation
 // https://www.youtube.com/shorts/BiYBJ9PIbrw?feature=share
-
 
 const MainContainer = document.getElementById("MainContainer");
 const Modal = document.getElementById("Modal");
@@ -14,12 +12,14 @@ const CloseModalBtn = document.getElementById("CloseModalBtn");
 const googleInput = document.getElementById("GoogleBar");
 const googleGo = document.getElementById("GoogleGo");
 
-
 //#region Open/Close B
 OpenBoardButton.addEventListener("click", () => {
   Modal.classList.add("show");
   MainContainer.classList.add("hidden");
   googleGo.style.display = "none";
+    
+    // Get localstorage data
+    // Je dois faire une recherche de mes key sauvegarder
 });
 
 CloseModalBtn.addEventListener("click", () => {

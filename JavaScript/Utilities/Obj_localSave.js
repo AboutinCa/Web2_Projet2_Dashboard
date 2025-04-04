@@ -1,8 +1,8 @@
-import ExpSytem from "../experienceSystem.js";
+import ExpSytem from "../ExperienceSystem.js";
 import Widget_Container from "../Widgets/0.Widget_Container.js";
 import Widget_ToDoList from "../Widgets/01.Todo_List.js";
 
-const Dashboard = document.getElementById("Dashboard");
+const DashboardNode = document.getElementById("Dashboard");
 
 //Fonction 1 : Enregistrer une donnée (saveItem)
 //Fonction 2 : Loader une donnée (loadItem)
@@ -14,11 +14,15 @@ const Dashboard = document.getElementById("Dashboard");
 
 //utilise une clé et une valeur
 //localStorage peut juste stocker des strings, dont je fais stringify sur ma value
-const LocalSave = {
-    SavedWidgets: [],
-      
+const LocalSave = {   
+        
     saveItem(key, value) {
         localStorage.setItem(key, JSON.stringify(value));
+    },
+
+    loadWidgetID(key) {
+        const ID = localStorage.getItem(key);
+        return ID ? JSON.parse(ID) : null;
     },
 
     loadItem(key) {
@@ -84,7 +88,7 @@ const LocalSave = {
                 new Widget_Container(
                     element.index,
                     element.id,
-                    Dashboard,
+                    DashboardNode,
                     "Todo List"
                 );
                 new Widget_ToDoList(
@@ -110,13 +114,16 @@ const LocalSave = {
             //     );
             // }           
         }
-    },
+    }
 }
 export default LocalSave;
 
 document.addEventListener("DOMContentLoaded", () => {
     LocalSave.loadAllSavedData();
     LocalSave.loadAllWidgets();
+    LocalSave.loadWidgetID("widgetID");
+    console.log(`DOM widget ID : ${JSON.stringify(LocalSave.loadWidgetID)}`);
+    
 });
 
 // section debug, pour qu'on puisse appeler les fonctions en console

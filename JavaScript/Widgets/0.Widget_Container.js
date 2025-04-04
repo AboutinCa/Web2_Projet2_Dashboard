@@ -10,6 +10,9 @@ class Widget_Container {
     this.index = Index;
     this.id = Id;
     this.parentNode = ParentNode;
+    
+    this.width = "fit-content";
+    this.height = "fit-content";
     this.title = Title;
     
     this.isEditing = false;
@@ -22,8 +25,6 @@ class Widget_Container {
   // Ajoute les parametres necessaire pour ton widget
   addHtmlFrame(widgetTitle) {   
     //#region Frame de base
-
-    const widgetParent = () => {
       const widget = CreateElement.createDiv(this.id, "widget", this.parentNode);
 
       const header = CreateElement.createDiv( // Widget Header
@@ -142,7 +143,5 @@ class Widget_Container {
       );
       //#endregion
     }
-    return widgetParent();
-  }
 }
 export default Widget_Container;

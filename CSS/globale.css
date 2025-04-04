@@ -565,11 +565,11 @@ button:hover #clip {
 /*#region*/
 .input-text {
   width: 100%;
+  height: auto;
   outline: none;
+  margin: 0.25em 0;
 
-  padding: 0.25em 0.25em;
-
-  font-size: var(--font-size-small);
+  font-size: var(--font-size-xsmall);
   border: none;
   background-color: var(--color-raisin-black);
 }

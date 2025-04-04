@@ -1,4 +1,4 @@
-import LocalSave from "./Utilities/Obj_localSave.js";
+import Dashboard from "./Dashboard.js";
 
 /*Le but: 
     1. Afficher le niveau actuel : Lv. X (XPLevelBadge)
@@ -36,7 +36,7 @@ const Function = {
 
   addXP(amountXP) {
     totalXP += amountXP;
-    LocalSave.saveItem("xpTotal", totalXP);
+    Dashboard.saveItem("xpTotal", totalXP);
 
     const resultLevel = this.calculateLevel(totalXP);
     console.log(

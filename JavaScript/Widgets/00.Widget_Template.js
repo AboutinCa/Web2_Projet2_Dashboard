@@ -1,8 +1,8 @@
 import CreateElement from "../Utilities/Obj_CreateElement.js";
 import Widget_Container from "./0.Widget_Container.js";
-import LocalSave from "../Utilities/Obj_localSave.js";
+import Dashboard from "../Dashboard.js";
 
-const Dashboard = document.getElementById("Dashboard");
+const DashboardNode = document.getElementById("Dashboard");
 const NewWidget = document.getElementById('NewWidget')
 
 class WidgetTemplate{
@@ -50,7 +50,7 @@ let newWidget = () => {
   new Widget_Container(
     widgetIndex,
     `widget${widgetIndex}`,
-    Dashboard,
+    DashboardNode,
     "Widget Template"
   );
 
@@ -61,7 +61,7 @@ let newWidget = () => {
   );
   
   // Ajout du widget dans la liste des widgets pret a la sauvegarde
-  //LocalSave.SavedWidgets.push({ index: widgetIndex, id: widgetId });
+  // LocalSave.SavedWidgets.push({ index: widgetIndex, id: widgetId });
   // Sauvegarde de la liste en localStorage
   // LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
  

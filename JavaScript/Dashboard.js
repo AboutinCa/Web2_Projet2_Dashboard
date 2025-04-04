@@ -1,3 +1,4 @@
+import LocalSave from "./Utilities/Obj_LocalSave.js";
 
 // Widgets
 // https://www.youtube.com/watch?v=1notwooXE58
@@ -12,14 +13,16 @@ const CloseModalBtn = document.getElementById("CloseModalBtn");
 const googleInput = document.getElementById("GoogleBar");
 const googleGo = document.getElementById("GoogleGo");
 
-//#region Open/Close B
+const Dashboard = {
+    widgetID: LocalSave.loadWidgetID("widgetID"),
+    SavedWidgets: [],
+}
+
+//#region Open/Close Mondal
 OpenBoardButton.addEventListener("click", () => {
   Modal.classList.add("show");
   MainContainer.classList.add("hidden");
-  googleGo.style.display = "none";
-    
-    // Get localstorage data
-    // Je dois faire une recherche de mes key sauvegarder
+  googleGo.style.display = "none";   
 });
 
 CloseModalBtn.addEventListener("click", () => {
@@ -53,3 +56,4 @@ function submitGoogleSearch() {
 }
 //#endregion
 
+export default Dashboard;

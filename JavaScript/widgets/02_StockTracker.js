@@ -9,6 +9,7 @@ class Widget_StockTracker {
     constructor(Index, Id, ParentNode) {
         this.index = Index;
         this.id = Id;
+        this.favorites = this.loadFavorites();
         this.content = this.createWidget(ParentNode);
     }
 
@@ -41,6 +42,25 @@ class Widget_StockTracker {
             container
         );
 
+        this.history = this.loadHistory();
+        this.historyContainer = CreateElement.createDiv(
+            `StockHistory${this.index}`,
+            "stock-history",
+            container
+        );
+     
+        this.favoritesContainer = CreateElement.createDiv(
+            `StockFavorites${this.index}`,
+            "stock-favorites",
+            container
+        );
+
+        this.renderHistory();
+        this.input = input;
+        this.result = result;
+        this.renderFavorites();
+
+        
         button.addEventListener("click", () => {
             const ticker = input.value.trim().toUpperCase();
             if (ticker) this.getStockPrice(ticker, result);
@@ -52,8 +72,7 @@ class Widget_StockTracker {
                 event.preventDefault();
                 button.click();
             }
-        });
-        
+        }); 
     }
 
     async getStockPrice(ticker, result) {
@@ -66,14 +85,111 @@ class Widget_StockTracker {
 
             if (data.c) {
                 result.textContent = `${ticker} ➜ Prix actuel : $${data.c}`;
+                this.updateHistory(ticker);
+                this.renderHistory();
             } else {
-                result.textContent = "Donnée introuvable.";
+                result.textContent = "Donnée introuvable";
             }
         } catch (error) {
-            result.textContent = "Erreur de chargement.";
+            result.textContent = "Erreur de chargement";
             console.error(error);
         }
     }
+
+    //section pour l'historique
+    loadHistory() {
+        const saved = localStorage.getItem("StockHistory");
+        return saved ? JSON.parse(saved) : [];
+    }
+    
+    saveHistory() {
+    localStorage.setItem("StockHistory", JSON.stringify(this.history));
+    }
+    
+    updateHistory(ticker) { 
+        if (this.favorites.includes(ticker)) return; //Ne pas ajouter dans l’historique si c’est un favori
+    
+        //Update l'historique en évitant les doublons
+        this.history = this.history.filter(t => t !== ticker);
+        this.history.unshift(ticker);
+        //limite de 4 tickers dans l'history
+        this.history = this.history.slice(0, 4);
+        this.saveHistory();
+    }
+    
+    renderHistory() {
+        this.historyContainer.innerHTML = "<strong>Historique :</strong><br>";
+        this.history.forEach(ticker => {
+          const item = document.createElement("div");
+          item.className = "stock-history-item";
+          item.innerHTML = `- ${ticker} `;
+
+          const star = document.createElement("span");
+          star.textContent = this.favorites.includes(ticker) ? "⭐" : "☆";
+          star.style.cursor = "pointer";
+          star.style.marginLeft = "8px";
+          
+          star.onclick = (e) => {
+            e.stopPropagation(); //empêche que le click lance la recherche
+            this.toggleFavorite(ticker);
+          };
+          
+          item.onclick = () => this.getStockPrice(ticker);
+          item.appendChild(star);
+          this.historyContainer.appendChild(item);
+          
+        });
+    }
+    loadFavorites() {
+        const saved = localStorage.getItem("StockFavorites");
+        return saved ? JSON.parse(saved) : [];
+      }
+      
+    toggleFavorite(ticker) {
+    if (!this.favorites.includes(ticker)) {
+        this.favorites.push(ticker);
+    } else {
+        this.favorites = this.favorites.filter(t => t !== ticker);
+    }
+    localStorage.setItem("StockFavorites", JSON.stringify(this.favorites));
+    this.renderHistory(); //pour mettre à jour les étoiles affichées
+    this.renderFavorites();
+    }
+      
+    renderFavorites() {
+        this.favoritesContainer.innerHTML = "<strong>Favoris :</strong><br>";
+        this.favorites.forEach(ticker => {
+            const favItem = document.createElement("div");
+            favItem.className = "stock-favorite-item";
+            favItem.style.display = "flex";
+            favItem.style.alignItems = "center";
+            favItem.style.gap = "8px";
+    
+            //section qui fait en sorte que mon ticker est clickable
+            const label = document.createElement("span");
+            label.textContent = `- ${ticker}`;
+            label.style.cursor = "pointer";
+            label.style.color = "white";
+            label.onclick = () => {
+                this.input.value = ticker;
+                this.getStockPrice(ticker, this.result);
+            };
+    
+            // ptite étoile à droite
+            const star = document.createElement("span");
+            star.textContent = "⭐";
+            star.style.cursor = "pointer";
+            star.onclick = () => {
+                this.toggleFavorite(ticker); //va aussi relancer renderFavorites
+                this.renderHistory();        //pour mettre à jour l'autre étoile
+            };
+    
+            favItem.appendChild(label);
+            favItem.appendChild(star);
+            this.favoritesContainer.appendChild(favItem);
+        });
+    }
+    
 }
 export default Widget_StockTracker;
 

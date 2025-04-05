@@ -122,8 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     LocalSave.loadAllSavedData();
     LocalSave.loadAllWidgets();
     LocalSave.loadWidgetID("widgetID");
-    console.log(`DOM widget ID : ${JSON.stringify(LocalSave.loadWidgetID)}`);
-    
 });
 
 // section debug, pour qu'on puisse appeler les fonctions en console

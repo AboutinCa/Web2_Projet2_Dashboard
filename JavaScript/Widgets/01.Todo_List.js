@@ -1,7 +1,7 @@
 import CreateElement from "../Utilities/Obj_CreateElement.js";
 import Widget_Container from "./0.Widget_Container.js";
-import LocalSave from "../Utilities/Obj_LocalSave.js";
 import Dashboard from "../Dashboard.js";
+import LocalSave from "../Utilities/Obj_LocalSave.js";
 
 const DashboardNode = document.getElementById("Dashboard");
 const TDListIcon = document.getElementById("ToDoList");

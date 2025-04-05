@@ -1,6 +1,6 @@
-import ExpSytem from "../ExperienceSystem.js";
-import Widget_Container from "../Widgets/0.Widget_Container.js";
-import Widget_ToDoList from "../Widgets/01.Todo_List.js";
+import ExpSytem from "../Systems/01.User_Leveling.js";
+import Widget_Container from "../Widgets/00.Widget_Container.js";
+import Widget_ToDoList from "../Widgets/01.Widget_TodoList.js";
 
 const DashboardNode = document.getElementById("Dashboard");
 

@@ -1,23 +1,34 @@
-import CreateElement from "../Utilities/Obj_CreateElement.js";
-import Widget_Container from "./0.Widget_Container.js";
+import CreateElement from "../Utilities/00.Create_Element.js";
+import Widget_Container from "./00.Widget_Container.js";
 import Dashboard from "../Dashboard.js";
-import LocalSave from "../Utilities/Obj_LocalSave.js";
+import LocalSave from "../Utilities/01.Local_Save.js";
 
 const DashboardNode = document.getElementById("Dashboard");
 const TDListIcon = document.getElementById("ToDoList");
 
+/**
+ * Class of Widget_ToDoList, contains the function and the event required to add into the dashboard.
+ * @property {this.index} Use a globale "widgetID" and is used to increment/decrement div id.
+ * @property {this.id} Use "this.index" plus a name for the div container.
+ * @property {this.content} Is a function that create the widget frame.
+ * @param Index Is used to set the widget property index.
+ * @param Id Is used to set the widget property id.
+ * @param ParentNode Is used to set the widget property parentNode. 
+ */
 class Widget_ToDoList{
   constructor(Index, Id, ParentNode) {
     this.index = Index;
     this.id = Id;
-    this.save
-    // this.width;
-    // this.height;
+    // TODO this.width;
+    // TODO this.height;
     
     this.Content = this.createWidget(ParentNode);
   }
    
-  // Cette methode est le contenu de notre widget qui s'initialise a la creation "new TodoListWidget()"
+  /**
+   * Function that add HTLM/CSS/JS as a To-do list widget to the dashboard.
+   * @param parentNode This is the parentNode when our widget will be inserted.
+   */
   createWidget(parentNode) {
     const TDlist = CreateElement.createDiv(
       `TDList${this.index}`,
@@ -40,12 +51,11 @@ class Widget_ToDoList{
     );
     
     this.EditOnClick = () => { 
-      // je save le titre actuel 
       let currentTitle = TDHeader.innerHTML;
-      // je hide le header et le bouton de modification
       TDHeader.classList.add("hidden");
       this.EditBtn.classList.add("hidden");
-      // je cree un input avec le titre actuel
+
+      // Input pour editer le titre
       const input = CreateElement.createInput(
         `TDHeaderInput${this.index}`,
         "input-text color-vanilla",
@@ -56,19 +66,19 @@ class Widget_ToDoList{
       );
       input.focus();
 
-      // je cree un bouton pour valider la modification du titre
+      // Bouton de sauvegarde de mofification du titre
       const saveBtn = CreateElement.createButton(
         `TDHeaderSave${this.index}`,
         `widget-btn color-flax opacity50`,
         ``,
         () => {
-          // je veux verifier si l'input est vide avec un ternaire
+          // Verification si l'input est vide
           let newTitle = !input.value ? currentTitle : input.value;
                    
           console.log(`newTitle: ${newTitle}`);
           TDHeader.innerHTML = newTitle;
               
-          // je supprime le bouton de sauvegarde et l'input          
+          // Suppression de l'input et du bouton   
           TDHeaderDiv.removeChild(saveBtn);
           TDHeaderDiv.removeChild(input);
 
@@ -153,13 +163,11 @@ let newWidget = () => {
     document.getElementById(`WidgetContent${Dashboard.widgetID}`)
   );
   
-  // Je save l'id du Dashboard
-  LocalSave.saveItem("widgetID", Dashboard.widgetID)
-  
-  // Ajout du widget dans la liste des widgets pret a la sauvegarde
+  // Je "push" mon widget dans mon "savedWidgets" globale pour la sauvegarde future
   Dashboard.SavedWidgets.push({ index: Dashboard.widgetID, id: widgetId });
-
-  // Sauvegarde de mon widget dans ma key "Widgets" en localStorage
+  
+  // Sauvegarde de mon widget
+  LocalSave.saveItem("widgetID", Dashboard.widgetID)
   LocalSave.saveItem("Widgets", Dashboard.SavedWidgets);
 }
 //#endregion

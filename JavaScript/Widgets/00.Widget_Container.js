@@ -1,10 +1,26 @@
-import CreateElement from "../Utilities/Obj_CreateElement.js";
+import Dashboard from "../Dashboard.js";
+import CreateElement from "../Utilities/00.Create_Element.js";
+import LocalSave from "../Utilities/01.Local_Save.js";
 
-// Variables qui permet de savoir si un widget est en cours d'edition
 let isCurrentEdit = null;
 
-
-// Nom de class a changer selon le type de widget.
+/**
+ * The html frame the will be imported into the dashboard.
+ * Do not use alone, add a customized widget inside.
+ * @property {index} Use a globale "widgetID" and is used to increment/decrement div id.
+ * @property {id} Use "this.index" plus a name for the div container.
+ * @property {parentNode} Is a parentNode parameters to insert as a child.
+ * @property {width} Is a number value used to set width.
+ * @property {height} Is a number value used to set height.
+ * @property {title} Is a string value used to set the title of the widget.
+ * @property {isEditing} Is a boolean value used to see if the widget is in editing mode.
+ * @property {content} Is a function that create the widget frame.
+ * @param Index Is used to set the widget property index.
+ * @param Id Is used to set the widget property id.
+ * @param ParentNode Is used to set the widget property parentNode.
+ * @param Title Is used to set the widget property title.
+ * @function addHtmlFrame() Is a function that create the widget frame.
+ */
 class Widget_Container {
   constructor(Index, Id, ParentNode, Title) {
     this.index = Index;
@@ -17,12 +33,12 @@ class Widget_Container {
     
     this.isEditing = false;
     this.content = this.addHtmlFrame(this.title);
-    // On peut ajouer des proprietés ici
   }
 
-  // Creation of the widget div
-  // Liste globale de widgets pour pouvoir incrementer les id name
-  // Ajoute les parametres necessaire pour ton widget
+  /**
+   * Function that create the widget html frame, style.
+   * @param widgetTitle This param uses this.title to set the title of the widget.
+   */
   addHtmlFrame(widgetTitle) {   
     //#region Frame de base
       const widget = CreateElement.createDiv(this.id, "widget", this.parentNode);
@@ -32,25 +48,27 @@ class Widget_Container {
         "widget-header",
         widget
       );
-
-      CreateElement.createH3( // Widget Title
+      
+    // Widget Title section
+    CreateElement.createH3(
         `HeaderTitle${this.index}`,
         "widget-title",
         widgetTitle,
         header
       );
 
-      const ButtonsDiv = CreateElement.createDiv( // Widget manage buttons 
+    // Widget management buttons section
+    const ButtonsDiv = CreateElement.createDiv(
         `buttons${this.index}`,
         `widget-buttons`,
         header
       )
 
-      this.editOnClick = () => { // Callback function du Edit button
-        if (isCurrentEdit && isCurrentEdit !== this) {
-          isCurrentEdit.saveOnClick(); // Auto-save du widget 
+    // Callback function du Edit button
+    this.editOnClick = () => {
+        if ( isCurrentEdit && isCurrentEdit !== this) {
+          isCurrentEdit.saveOnClick();
         }
-  
         this.isEditing = true;
         isCurrentEdit = this;
 
@@ -60,7 +78,7 @@ class Widget_Container {
         this.RemoveBtn.classList.remove("hidden");
         this.SaveBtn.classList.remove("hidden");
       }
-      this.EditBtn = CreateElement.createButton( // Edit button
+      this.EditBtn = CreateElement.createButton( 
         `EditBtn${this.index}`,
         `widget-btn color-flax opacity50`,
         ``,
@@ -101,7 +119,10 @@ class Widget_Container {
       // Callback function du Remove button
       this.removeOnClick = () => {
         widget.remove();
-        this.index--;
+        // TODO remove from SavedWidgets[]
+        // WIP - Dashboard.SavedWidgets.splice(this.index, 1);
+        // TODO remove from localStorage OR rewrite the saves ?
+        LocalSave.saveItem("Widgets", Dashboard.SavedWidgets);
       };
       this.RemoveBtn = CreateElement.createButton(
         `RemoveBtn${this.index}`,

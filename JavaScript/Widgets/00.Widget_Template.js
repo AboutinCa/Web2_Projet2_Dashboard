@@ -1,5 +1,5 @@
-import CreateElement from "../Utilities/Obj_CreateElement.js";
-import Widget_Container from "./0.Widget_Container.js";
+import CreateElement from "../Utilities/00.Create_Element.js";
+import Widget_Container from "./00.Widget_Container.js";
 import Dashboard from "../Dashboard.js";
 
 const DashboardNode = document.getElementById("Dashboard");

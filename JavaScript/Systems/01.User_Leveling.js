@@ -1,4 +1,5 @@
-import Dashboard from "./Dashboard.js";
+import Dashboard from "../Dashboard.js";
+
 
 /*Le but: 
     1. Afficher le niveau actuel : Lv. X (XPLevelBadge)

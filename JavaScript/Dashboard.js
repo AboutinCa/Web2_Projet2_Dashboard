@@ -1,10 +1,31 @@
-import LocalSave from "./Utilities/Obj_LocalSave.js";
+import LocalSave from "./Utilities/01.Local_Save.js";
 
 // Widgets
 // https://www.youtube.com/watch?v=1notwooXE58
 
 // Cool hover animation
 // https://www.youtube.com/shorts/BiYBJ9PIbrw?feature=share
+
+// [High Priority]
+// TODO Un total de 5-6 widgets serait decent
+
+// TODO Modifier la structure de nos widget pour l'utilisation de "width" , "height" et autres
+// TODO Sauvegarder le contenu d'un widget (width, height, progression, etc..)
+
+// TODO Modifier le bouton remove dans le template pour qu'il l'efface egalement sur le localStorage
+// TODO Trouver un moyen de mettre a niveau le widgetID quand on remove, sur le localStorage et dans notre app.
+
+// TODO Options de rendre les widgets draggables
+// TODO Options pour masquer un widgets (sans le supprimer)
+// TODO Keybind pour On/Off le modal aka@Overlay
+
+// [Low Priority]
+// TODO Modal du bouton "Preferences" et petit message WIP
+// TODO Modal du bouton "About us" et petit message WIP
+// TODO Chiffrement des donnees sensibles en localStorage
+// TODO Import/Export du dashboard
+// Et plus encore dans la section "bonus" de la grille de correction 
+
 
 const MainContainer = document.getElementById("MainContainer");
 const Modal = document.getElementById("Modal");
@@ -13,12 +34,12 @@ const CloseModalBtn = document.getElementById("CloseModalBtn");
 const googleInput = document.getElementById("GoogleBar");
 const googleGo = document.getElementById("GoogleGo");
 
-const Dashboard = {
+let Dashboard = {
     widgetID: LocalSave.loadWidgetID("widgetID"),
     SavedWidgets: [],
 }
 
-//#region Open/Close Mondal
+//#region Dashboard modal
 OpenBoardButton.addEventListener("click", () => {
   Modal.classList.add("show");
   MainContainer.classList.add("hidden");

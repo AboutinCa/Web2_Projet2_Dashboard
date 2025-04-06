@@ -20,7 +20,7 @@ class Widget_StickyNotes {
       parentNode
     );
 
-    const textarea = CreateElement.createTextarea(
+    const textarea = CreateElement.createTextArea(
       `StickyNoteArea${this.index}`,
       "sticky-note-textarea",
       "Écris ta note ici...",

@@ -61,6 +61,19 @@ const CreateElement = {
 
     parentNode.appendChild(newInput);
     return newInput;
+  },
+  createTextArea(
+    id, 
+    className, 
+    placeholder, 
+    parent) 
+  {
+    const textArea = document.createElement("textarea");
+    textArea.id = id;
+    textArea.className = className;
+    textArea.placeholder = placeholder;
+    parent.appendChild(textArea);
+    return textArea;
   }
 };
 

@@ -5,13 +5,11 @@ import Dashboard from "../Dashboard.js";
 const DashboardNode = document.getElementById("Dashboard");
 const NewWidget = document.getElementById('NewWidget')
 
-class WidgetTemplate{
+class Widget_Template{
   constructor(Index, Id, ParentNode) {
     this.index = Index;
     this.id = Id;
     this.save
-    // this.width;
-    // this.height;
     
     this.Content = this.createWidget(ParentNode);
   }
@@ -34,7 +32,6 @@ class WidgetTemplate{
     );
   }
 }
-export default NewWidget;
 
 // Variables externes pour l'incrementation de l'id
 let widgetIndex = 0;
@@ -54,18 +51,13 @@ let newWidget = () => {
     "Widget Template"
   );
 
-  new WidgetTemplate(
+  new Widget_Template(
     widgetIndex,
     `widget${widgetIndex}`,
     document.getElementById(`WidgetContent${widgetIndex}`)
   );
   
-  // Ajout du widget dans la liste des widgets pret a la sauvegarde
-  // LocalSave.SavedWidgets.push({ index: widgetIndex, id: widgetId });
-  // Sauvegarde de la liste en localStorage
-  // LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
- 
-  // console.log(JSON.stringify(LocalSave.SavedWidgets));
+  // TODO ajouter la section de sauvegarde
 }
 NewWidget.addEventListener("click", () => {
   newWidget();

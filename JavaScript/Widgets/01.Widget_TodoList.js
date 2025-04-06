@@ -11,6 +11,7 @@ const TDListIcon = document.getElementById("ToDoList");
  * @property {this.index} Use a globale "widgetID" and is used to increment/decrement div id.
  * @property {this.id} Use "this.index" plus a name for the div container.
  * @property {this.content} Is a function that create the widget frame.
+ * @constructor (Index, Id, ParentNode)
  * @param Index Is used to set the widget property index.
  * @param Id Is used to set the widget property id.
  * @param ParentNode Is used to set the widget property parentNode. 
@@ -51,7 +52,7 @@ class Widget_ToDoList{
     );
     
     this.EditOnClick = () => { 
-      let currentTitle = TDHeader.innerHTML;
+      let currentTitle = TDHeader.innerHTML;     
       TDHeader.classList.add("hidden");
       this.EditBtn.classList.add("hidden");
 
@@ -65,6 +66,8 @@ class Widget_ToDoList{
         TDHeaderDiv
       );
       input.focus();
+      input.style.border = "2px solid var(--color-raisin-black)";
+      input.style.borderRadius = "8px";
 
       // Bouton de sauvegarde de mofification du titre
       const saveBtn = CreateElement.createButton(
@@ -73,9 +76,7 @@ class Widget_ToDoList{
         ``,
         () => {
           // Verification si l'input est vide
-          let newTitle = !input.value ? currentTitle : input.value;
-                   
-          console.log(`newTitle: ${newTitle}`);
+          let newTitle = !input.value ? currentTitle : input.value;                 
           TDHeader.innerHTML = newTitle;
               
           // Suppression de l'input et du bouton   
@@ -89,6 +90,10 @@ class Widget_ToDoList{
       );
       saveBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
 
+      const dumpTaskBtn = document.querySelectorAll(".dump-btn");
+      dumpTaskBtn.forEach((btn) => {
+        btn.classList.remove("hidden");
+      });
     }
     this.EditBtn = CreateElement.createButton(
       `TDHeaderEdit${this.index}`,
@@ -103,7 +108,7 @@ class Widget_ToDoList{
     //#region InputDiv
     const TDInputDiv = CreateElement.createDiv(
       `TDInputDiv${this.index}`,
-      "todo-input-div flex-row",
+      "todo-input-div flex-row small-padding-y",
       TDlist
     );
 
@@ -115,25 +120,63 @@ class Widget_ToDoList{
       "Ajouter un achat",
       TDInputDiv
     );
+    taskInput.style.border = "2px solid var(--color-raisin-black)";
+    taskInput.style.borderRadius = "8px";
 
+    // Function to save the input value into the list
+    this.saveOnClick = () => { 
+      let isInputEmpty = taskInput.value == "" ? true : false;
+      
+      if (!isInputEmpty) {
+        const taskDiv = CreateElement.createDiv(
+          `taskDiv${this.index}`,
+          "flex-row align-center justify-between",
+          list
+        );
+
+        const li = document.createElement("li");
+        li.classList = "width100 color-vanilla";
+        li.style.textDecoration = "none";      
+        li.textContent = taskInput.value;
+        taskInput.value = "";
+        taskDiv.appendChild(li);
+
+        const delTaskBtn = CreateElement.createButton(
+          `deleteBtn${this.index}`,
+          `dump-btn`,
+          `X`,
+          () => {
+            taskDiv.removeChild(li);
+            taskDiv.removeChild(delTaskBtn);
+          },
+          taskDiv
+        );
+      }
+      else {
+        taskInput.classList.add("flash_border_red");
+        setTimeout(() => {
+          taskInput.classList.remove("flash_border_red");
+        }, 1500);
+      }
+    }
+    // Confirm task with "Enter" key
+    window.onkeydown = (event) => {
+      if (event.key === "Enter" && taskInput.matches(":focus")) {
+        this.saveOnClick();
+      }
+    }
+    
     this.SaveInputBtn = CreateElement.createButton(
       `TDSaveInput${this.index}`,
       `widget-btn color-flax opacity50`,
       ``,
-      () => {
-        const li = document.createElement("li");
-        li.classList = "todolist-li color-vanilla";
-        li.style.textDecoration = "none";
-        li.textContent = taskInput.value;
-        list.appendChild(li);
-        taskInput.value = "";
-      },
+      this.saveOnClick,
       TDInputDiv
     )
     this.SaveInputBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
 
     const list = document.createElement("ul");
-    list.classList = "";
+    list.classList = "text-xsmall";
 
     TDlist.appendChild(list);
     //#endregion

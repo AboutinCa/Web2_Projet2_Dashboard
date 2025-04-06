@@ -15,6 +15,7 @@ let isCurrentEdit = null;
  * @property {title} Is a string value used to set the title of the widget.
  * @property {isEditing} Is a boolean value used to see if the widget is in editing mode.
  * @property {content} Is a function that create the widget frame.
+ * @constructor (Index, Id, ParentNode, Title)
  * @param Index Is used to set the widget property index.
  * @param Id Is used to set the widget property id.
  * @param ParentNode Is used to set the widget property parentNode.
@@ -45,7 +46,7 @@ class Widget_Container {
 
       const header = CreateElement.createDiv( // Widget Header
         `Header${this.index}`,
-        "widget-header",
+        "widget-header small-padding-y",
         widget
       );
       

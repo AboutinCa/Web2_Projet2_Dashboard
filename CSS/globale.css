@@ -108,7 +108,7 @@ https://uiverse.io/Galahhad/ancient-emu-61
   /* Specifie un ratio de mon "font-size" me permet de lié mes unité "rem" 
    * pour rendre toute App plus responsive.
    * PAS CERTAIN DE COMMENT L'UTILISER EFFICACEMENT. */
-  font-size: 100%;
+  font-size: 90%;
   background-color: var(--color-raisin-black);
 }
 
@@ -118,6 +118,18 @@ https://uiverse.io/Galahhad/ancient-emu-61
 /*#region*/
 .hidden {
   display: none;
+}
+
+.width100 {
+  width: 100%;
+}
+
+.small-padding-y {
+  padding: 0.25em 0;
+}
+
+.small-padding-x {
+  padding: 0 0.25em;
 }
 
 .opacity50 {
@@ -193,6 +205,10 @@ https://uiverse.io/Galahhad/ancient-emu-61
 .align-center {
   justify-content: center;
   align-items: center;
+}
+
+.self-center {
+  align-self: center;
 }
 
 .wrap {
@@ -559,6 +575,24 @@ button:hover #clip {
   transition: ease-in-out 0.2s;
 }
 
+.dump-btn {
+  width: 35px;
+  padding: 0 0.5em;
+  margin: 0 0.125em;
+
+  text-align: center;
+  text-decoration: none;
+  opacity: 50%;
+  color: var(--color-flax);
+  background-color: var(--color-pale-black);
+  border: none;
+}
+.dump-btn:hover {
+  cursor: pointer;
+  opacity: 100%;
+  transition: ease-in-out 0.2s;
+}
+
 /*#endregion*/
 
 /* CLASSES DE TYPE INPUT */
@@ -567,7 +601,6 @@ button:hover #clip {
   width: 100%;
   height: auto;
   outline: none;
-  margin: 0.25em 0;
 
   font-size: var(--font-size-xsmall);
   border: none;
@@ -607,6 +640,22 @@ button:hover #clip {
   100% {
   background-color: var(--color-raisin-black);
   opacity: 0.25;
+  }
+}
+
+.flash_border_red {
+  animation: flash_border_red 1.5s infinite;
+}
+
+@keyframes flash_border_red {
+  0% {
+    border: 2px inset #ff0000bb;
+  }
+  50% {
+    border: 2px inset #ff000000;
+  }
+  100% {
+    border: 2px inset #ff0000bb;
   }
 }
 /*#endregion*/

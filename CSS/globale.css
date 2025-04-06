@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /* Source : https://coolors.co/ */
 
 /* CSS HEX /
@@ -62,7 +62,7 @@ https://uiverse.io/Galahhad/ancient-emu-61
   --color-green: rgb(25, 120, 30);
   --color-vanilla: rgba(214, 219, 178, 1);
   --color-flax: rgba(227, 217, 133, 1);
-  
+
   /* SNIPPETS => Widget de theme ?
   --base-color:
   --second-base-color:
@@ -82,7 +82,8 @@ https://uiverse.io/Galahhad/ancient-emu-61
   --font-size-xsmall: 1.25rem;
 
   /* PARAMETRES GLOBALE */
-  font-family: Poppins, 'Segoe UI', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Poppins, "Segoe UI", "Segoe UI", Tahoma, Geneva, Verdana,
+    sans-serif;
   box-sizing: border-box;
   text-wrap: balance;
   margin: 0;
@@ -287,11 +288,7 @@ body {
 /*#region*/
 
 .material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 10,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 24
+  font-variation-settings: "FILL" 10, "wght" 400, "GRAD" 0, "opsz" 24;
 }
 
 #TopButtonBar {
@@ -381,7 +378,6 @@ body {
   opacity: 0.5;
 }
 
-
 /*#endregion*/
 
 /* CLASSES DE BUTTONS */
@@ -413,7 +409,16 @@ body {
   height: 100%;
   border: 5px double var(--color-vanilla);
   box-shadow: inset 0px 0px 15px var(--color-flax);
-  -webkit-clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+  -webkit-clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 30%,
+    100% 70%,
+    70% 100%,
+    30% 100%,
+    0% 70%,
+    0% 30%
+  );
 }
 
 .arrow {
@@ -464,11 +469,11 @@ button:hover #leftArrow {
 
 #leftTop {
   top: -1.96em;
-  left: -3.0em;
+  left: -3em;
 }
 
 #leftBottom {
-  top: 2.10em;
+  top: 2.1em;
   left: -2.15em;
 }
 
@@ -479,22 +484,22 @@ button:hover #leftArrow {
 
 button:hover #leftTop {
   animation: 0.1s ease-in-out 0.05s both changeColor8,
-  0.2s linear 0.4s both lightEffect8;
+    0.2s linear 0.4s both lightEffect8;
 }
 
 button:hover #rightTop {
   animation: 0.1s ease-in-out 0.15s both changeColor8,
-  0.2s linear 0.4s both lightEffect8;
+    0.2s linear 0.4s both lightEffect8;
 }
 
 button:hover #rightBottom {
   animation: 0.1s ease-in-out 0.25s both changeColor8,
-  0.2s linear 0.4s both lightEffect8;
+    0.2s linear 0.4s both lightEffect8;
 }
 
 button:hover #leftBottom {
   animation: 0.1s ease-in-out 0.35s both changeColor8,
-  0.2s linear 0.4s both lightEffect8;
+    0.2s linear 0.4s both lightEffect8;
 }
 
 button:hover .corner {
@@ -503,26 +508,26 @@ button:hover .corner {
 
 button:hover #clip {
   animation: 0.2s ease-in-out 0.55s both greenLight8;
-  --color: var(--color-vanilla);;
+  --color: var(--color-vanilla);
 }
 
 @keyframes changeColor8 {
   from {
-    background-color: var(--color-flax);;
+    background-color: var(--color-flax);
   }
 
   to {
-    background-color: var(--color-vanilla);;
+    background-color: var(--color-vanilla);
   }
 }
 
 @keyframes lightEffect8 {
   from {
-    box-shadow: 1px 1px 5px var(--color-flax);;
+    box-shadow: 1px 1px 5px var(--color-flax);
   }
 
   to {
-    box-shadow: 0 0 2px var(--color-vanilla);;
+    box-shadow: 0 0 2px var(--color-vanilla);
   }
 }
 
@@ -575,24 +580,6 @@ button:hover #clip {
   transition: ease-in-out 0.2s;
 }
 
-.dump-btn {
-  width: 35px;
-  padding: 0 0.5em;
-  margin: 0 0.125em;
-
-  text-align: center;
-  text-decoration: none;
-  opacity: 50%;
-  color: var(--color-flax);
-  background-color: var(--color-pale-black);
-  border: none;
-}
-.dump-btn:hover {
-  cursor: pointer;
-  opacity: 100%;
-  transition: ease-in-out 0.2s;
-}
-
 /*#endregion*/
 
 /* CLASSES DE TYPE INPUT */
@@ -630,16 +617,16 @@ button:hover #clip {
 }
 @keyframes pulse {
   0% {
-  background-color: var(--color-raisin-black);
-  opacity: 0.25;
+    background-color: var(--color-raisin-black);
+    opacity: 0.25;
   }
   50% {
-  background-color: var(--color-pale-black);
-  opacity: 1;
+    background-color: var(--color-pale-black);
+    opacity: 1;
   }
   100% {
-  background-color: var(--color-raisin-black);
-  opacity: 0.25;
+    background-color: var(--color-raisin-black);
+    opacity: 0.25;
   }
 }
 

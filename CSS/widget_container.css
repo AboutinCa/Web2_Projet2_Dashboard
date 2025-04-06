@@ -1,4 +1,6 @@
-/* Widget styles */
+
+/*#region Widget_Container */
+
 .widget {
   /* position: absolute; */
   width: fit-content;
@@ -56,3 +58,24 @@
   opacity: 1;
   animation: none;
 }
+/*#endregion Widget_Container */
+
+/*#region Widget_ToDoList */
+.dump-btn {
+  width: 35px;
+  padding: 0 0.5em;
+  margin: 0 0.125em;
+
+  text-align: center;
+  text-decoration: none;
+  opacity: 50%;
+  color: var(--color-flax);
+  background-color: var(--color-pale-black);
+  border: none;
+}
+.dump-btn:hover {
+  cursor: pointer;
+  opacity: 100%;
+  transition: ease-in-out 0.2s;
+}
+/*#endregion Widget_ToDoList */

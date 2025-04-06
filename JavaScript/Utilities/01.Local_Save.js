@@ -14,114 +14,93 @@ const DashboardNode = document.getElementById("Dashboard");
 
 //utilise une clé et une valeur
 //localStorage peut juste stocker des strings, dont je fais stringify sur ma value
-const LocalSave = {   
-        
-    saveItem(key, value) {
-        localStorage.setItem(key, JSON.stringify(value));
-    },
+const LocalSave = {
+  saveItem(key, value) {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
 
-    loadWidgetID(key) {
-        const ID = localStorage.getItem(key);
-        return ID ? JSON.parse(ID) : null;
-    },
+  loadWidgetID(key) {
+    const ID = localStorage.getItem(key);
+    return ID ? JSON.parse(ID) : null;
+  },
 
-    loadItem(key) {
-        const value = localStorage.getItem(key);
-        //if value existe, then JSON.parse, sinon null
-        return value ? JSON.parse(value) : null;
-    },
+  loadItem(key) {
+    const value = localStorage.getItem(key);
+    //if value existe, then JSON.parse, sinon null
+    return value ? JSON.parse(value) : null;
+  },
 
-    loadWidget(key) {
-        const widgetData = localStorage.getItem(key);
-        return widgetData ? JSON.parse(widgetData) : [];
-    },
+  loadWidget(key) {
+    const widgetData = localStorage.getItem(key);
+    return widgetData ? JSON.parse(widgetData) : [];
+  },
 
-    deleteItem(key) {
-        localStorage.removeItem(key);
-    },
+  deleteItem(key) {
+    localStorage.removeItem(key);
+  },
 
-    resetWidget(widgetKey) {
-        this.deleteItem(widgetKey);
-    },
+  resetWidget(widgetKey) {
+    this.deleteItem(widgetKey);
+  },
 
-    resetAll() {
-        localStorage.clear();
-        ExpSytem.totalXP = 0;
-        ExpSytem.Function.updateXPBar();
-    },
+  resetAll() {
+    localStorage.clear();
+    ExpSytem.totalXP = 0;
+    ExpSytem.Function.updateXPBar();
+  },
 
-    resetXP() {
-        const confirm1 = confirm("Êtes-vous SÛR de vouloir réinitialiser votre progression ?");
-        if (!confirm1) return;
-        const confirm2 = confirm("Êtes-vous VRAIMENT SÛR ?");
-        if (!confirm2) return;
-        ExpSytem.totalXP = 0;
-        this.saveItem("xpTotal", ExpSytem.totalXP);
-        ExpSytem.Function.updateXPBar();
-    },
+  resetXP() {
+    const confirm1 = confirm(
+      "Êtes-vous SÛR de vouloir réinitialiser votre progression ?"
+    );
+    if (!confirm1) return;
+    const confirm2 = confirm("Êtes-vous VRAIMENT SÛR ?");
+    if (!confirm2) return;
+    ExpSytem.totalXP = 0;
+    this.saveItem("xpTotal", ExpSytem.totalXP);
+    ExpSytem.Function.updateXPBar();
+  },
 
-    //fonction autoload qui charge des données au loading de la page
-    loadAllSavedData() {
-        const savedXP = this.loadItem("xpTotal");
-        if (savedXP !== null) {
-            ExpSytem.totalXP = savedXP;
-            ExpSytem.Function.updateXPBar();
-        }       
-    },
-
-    loadAllWidgets() {
-        const savedWidgets = this.loadWidget("Widgets");
-        console.log(savedWidgets[0]);
-              
-        // console.log(localStorage.getItem("Widgets"));
-        // console.log(savedWidgets.length);
-        
-        const stringified = JSON.stringify(savedWidgets);
-        console.log(stringified);
-        
-        if (savedWidgets !== null) {
-            const dataArray = [];
-
-            dataArray.push(savedWidgets);
-
-            savedWidgets.forEach(element => {
-                new Widget_Container(
-                    element.index,
-                    element.id,
-                    DashboardNode,
-                    "Todo List"
-                );
-                new Widget_ToDoList(
-                    element.index,
-                    element.id,
-                    document.getElementById(`WidgetContent${element.index}`)
-                );
-            });
-
-            // console.log(savedWidgets);
-            // for (let i = 0; i < savedWidgets.length; i++) {               
-            //     const element = savedWidgets[i];    
-            //     new Widget_Template(
-            //         element.index,
-            //         element.id,
-            //         Dashboard,
-            //         "Todo List"
-            //     );
-            //     new Widget_ToDoList(
-            //         element.index,
-            //         element.id,
-            //         document.getElementById(`WidgetContent${element.index}`)
-            //     );
-            // }           
-        }
+  //fonction autoload qui charge des données au loading de la page
+  loadAllSavedData() {
+    const savedXP = this.loadItem("xpTotal");
+    if (savedXP !== null) {
+      ExpSytem.totalXP = savedXP;
+      ExpSytem.Function.updateXPBar();
     }
-}
+  },
+
+  loadAllWidgets() {
+    // TODO Modifier pour que ca load les differents widgets
+    const savedWidgets = this.loadWidget("Widgets");
+
+    if (savedWidgets !== null) {
+      const dataArray = [];
+
+      dataArray.push(savedWidgets);
+
+      savedWidgets.forEach(element => {
+        new Widget_Container(
+          element.index,
+          element.id,
+          DashboardNode,
+          "Todo List"
+        );
+        new Widget_ToDoList(
+          element.index,
+          element.id,
+          document.getElementById(`WidgetContent${element.index}`)
+        );
+      });
+    }
+  },
+};
 export default LocalSave;
 
 document.addEventListener("DOMContentLoaded", () => {
-    LocalSave.loadAllSavedData();
-    LocalSave.loadAllWidgets();
-    LocalSave.loadWidgetID("widgetID");
+  LocalSave.loadAllSavedData();
+  LocalSave.loadAllWidgets();
+  LocalSave.loadWidgetID("widgetID");
 });
 
 // section debug, pour qu'on puisse appeler les fonctions en console

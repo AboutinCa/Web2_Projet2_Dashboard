@@ -7,10 +7,11 @@ import LocalSave from "./Utilities/01.Local_Save.js";
 // https://www.youtube.com/shorts/BiYBJ9PIbrw?feature=share
 
 // [High Priority]
-// TODO Un total de 5-6 widgets serait decent
-
-// TODO Modifier la structure de nos widget pour l'utilisation de "width" , "height" et autres
+// TODO Modifier la structure de nos widget pour l'utilisation de "name", "width" , "height" et autres
 // TODO Sauvegarder le contenu d'un widget (width, height, progression, etc..)
+
+// TODO Un total de 5-6 widgets serait decent
+// TODO Un bouton/function pour reset le dashboard (localStorage.clear())
 
 // TODO Modifier le bouton remove dans le template pour qu'il l'efface egalement sur le localStorage
 // TODO Trouver un moyen de mettre a niveau le widgetID quand on remove, sur le localStorage et dans notre app.
@@ -24,8 +25,7 @@ import LocalSave from "./Utilities/01.Local_Save.js";
 // TODO Modal du bouton "About us" et petit message WIP
 // TODO Chiffrement des donnees sensibles en localStorage
 // TODO Import/Export du dashboard
-// Et plus encore dans la section "bonus" de la grille de correction 
-
+// Et plus encore dans la section "bonus" de la grille de correction
 
 const MainContainer = document.getElementById("MainContainer");
 const Modal = document.getElementById("Modal");
@@ -35,15 +35,15 @@ const googleInput = document.getElementById("GoogleBar");
 const googleGo = document.getElementById("GoogleGo");
 
 let Dashboard = {
-    widgetID: LocalSave.loadWidgetID("widgetID"),
-    SavedWidgets: [],
-}
+  widgetID: LocalSave.loadWidgetID("widgetID"),
+  SavedWidgets: [],
+};
 
 //#region Dashboard modal
 OpenBoardButton.addEventListener("click", () => {
   Modal.classList.add("show");
   MainContainer.classList.add("hidden");
-  googleGo.style.display = "none";   
+  googleGo.style.display = "none";
 });
 
 CloseModalBtn.addEventListener("click", () => {
@@ -56,24 +56,26 @@ CloseModalBtn.addEventListener("click", () => {
 //#region Google bar
 //Si on a du texte dans notre champ, et qu'on appuie sur enter, appelle submitGoogleSearch()
 googleInput.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") {
-        e.preventDefault();
-        submitGoogleSearch();
-    }
+  if (e.key === "Enter") {
+    e.preventDefault();
+    submitGoogleSearch();
+  }
 });
 
 //Le bouton Go appelle submitGoogleSearch()
 googleGo.addEventListener("click", () => {
-    submitGoogleSearch();
+  submitGoogleSearch();
 });
 
 //Fonction qui fait la recherche google, copiée de ChatGPT
 function submitGoogleSearch() {
-    const googleQuery = googleInput.value.trim();
-    if (googleQuery !== "") {
-        const url = `https://www.google.com/search?q=${encodeURIComponent(googleQuery)}`;
-        window.open(url, "_blank");
-    }
+  const googleQuery = googleInput.value.trim();
+  if (googleQuery !== "") {
+    const url = `https://www.google.com/search?q=${encodeURIComponent(
+      googleQuery
+    )}`;
+    window.open(url, "_blank");
+  }
 }
 //#endregion
 

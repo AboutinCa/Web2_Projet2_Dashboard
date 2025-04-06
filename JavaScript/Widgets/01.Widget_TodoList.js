@@ -14,18 +14,18 @@ const TDListIcon = document.getElementById("ToDoList");
  * @constructor (Index, Id, ParentNode)
  * @param Index Is used to set the widget property index.
  * @param Id Is used to set the widget property id.
- * @param ParentNode Is used to set the widget property parentNode. 
+ * @param ParentNode Is used to set the widget property parentNode.
  */
-class Widget_ToDoList{
+class Widget_ToDoList {
   constructor(Index, Id, ParentNode) {
     this.index = Index;
     this.id = Id;
     // TODO this.width;
     // TODO this.height;
-    
+
     this.Content = this.createWidget(ParentNode);
   }
-   
+
   /**
    * Function that add HTLM/CSS/JS as a To-do list widget to the dashboard.
    * @param parentNode This is the parentNode when our widget will be inserted.
@@ -36,8 +36,8 @@ class Widget_ToDoList{
       "todo-list",
       parentNode
     );
-    
-    //#region HeaderDiv 
+
+    //#region HeaderDiv
     const TDHeaderDiv = CreateElement.createDiv(
       `TDHeaderDiv${this.index}`,
       `flex-row justify-between`,
@@ -50,9 +50,9 @@ class Widget_ToDoList{
       "Achats quotidiens",
       TDHeaderDiv
     );
-    
-    this.EditOnClick = () => { 
-      let currentTitle = TDHeader.innerHTML;     
+
+    this.EditOnClick = () => {
+      let currentTitle = TDHeader.innerHTML;
       TDHeader.classList.add("hidden");
       this.EditBtn.classList.add("hidden");
 
@@ -76,10 +76,10 @@ class Widget_ToDoList{
         ``,
         () => {
           // Verification si l'input est vide
-          let newTitle = !input.value ? currentTitle : input.value;                 
+          let newTitle = !input.value ? currentTitle : input.value;
           TDHeader.innerHTML = newTitle;
-              
-          // Suppression de l'input et du bouton   
+
+          // Suppression de l'input et du bouton
           TDHeaderDiv.removeChild(saveBtn);
           TDHeaderDiv.removeChild(input);
 
@@ -91,10 +91,10 @@ class Widget_ToDoList{
       saveBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
 
       const dumpTaskBtn = document.querySelectorAll(".dump-btn");
-      dumpTaskBtn.forEach((btn) => {
+      dumpTaskBtn.forEach(btn => {
         btn.classList.remove("hidden");
       });
-    }
+    };
     this.EditBtn = CreateElement.createButton(
       `TDHeaderEdit${this.index}`,
       `widget-btn color-flax opacity50`,
@@ -124,9 +124,9 @@ class Widget_ToDoList{
     taskInput.style.borderRadius = "8px";
 
     // Function to save the input value into the list
-    this.saveOnClick = () => { 
+    this.saveOnClick = () => {
       let isInputEmpty = taskInput.value == "" ? true : false;
-      
+
       if (!isInputEmpty) {
         const taskDiv = CreateElement.createDiv(
           `taskDiv${this.index}`,
@@ -136,7 +136,7 @@ class Widget_ToDoList{
 
         const li = document.createElement("li");
         li.classList = "width100 color-vanilla";
-        li.style.textDecoration = "none";      
+        li.style.textDecoration = "none";
         li.textContent = taskInput.value;
         taskInput.value = "";
         taskDiv.appendChild(li);
@@ -151,28 +151,27 @@ class Widget_ToDoList{
           },
           taskDiv
         );
-      }
-      else {
+      } else {
         taskInput.classList.add("flash_border_red");
         setTimeout(() => {
           taskInput.classList.remove("flash_border_red");
         }, 1500);
       }
-    }
+    };
     // Confirm task with "Enter" key
-    window.onkeydown = (event) => {
+    window.onkeydown = event => {
       if (event.key === "Enter" && taskInput.matches(":focus")) {
         this.saveOnClick();
       }
-    }
-    
+    };
+
     this.SaveInputBtn = CreateElement.createButton(
       `TDSaveInput${this.index}`,
       `widget-btn color-flax opacity50`,
       ``,
       this.saveOnClick,
       TDInputDiv
-    )
+    );
     this.SaveInputBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
 
     const list = document.createElement("ul");
@@ -190,9 +189,9 @@ export default Widget_ToDoList;
  */
 //#region CreateEvent
 let newWidget = () => {
-  Dashboard.widgetID++
+  Dashboard.widgetID++;
   let widgetId = `widget${Dashboard.widgetID}`;
-  
+
   new Widget_Container(
     Dashboard.widgetID,
     widgetId,
@@ -205,14 +204,14 @@ let newWidget = () => {
     widgetId,
     document.getElementById(`WidgetContent${Dashboard.widgetID}`)
   );
-  
+
   // Je "push" mon widget dans mon "savedWidgets" globale pour la sauvegarde future
   Dashboard.SavedWidgets.push({ index: Dashboard.widgetID, id: widgetId });
-  
+
   // Sauvegarde de mon widget
-  LocalSave.saveItem("widgetID", Dashboard.widgetID)
+  LocalSave.saveItem("widgetID", Dashboard.widgetID);
   LocalSave.saveItem("Widgets", Dashboard.SavedWidgets);
-}
+};
 //#endregion
 TDListIcon.addEventListener("click", () => {
   newWidget();

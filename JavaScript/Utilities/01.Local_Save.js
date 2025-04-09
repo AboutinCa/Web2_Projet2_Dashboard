@@ -1,4 +1,4 @@
-import ExpSytem from "../Systems/01.User_Leveling.js";
+import ExpSystem from "../Systems/01.User_Leveling.js";
 import Widget_Container from "../Widgets/00.Widget_Container.js";
 import Widget_ToDoList from "../Widgets/01.Widget_TodoList.js";
 
@@ -45,9 +45,10 @@ const LocalSave = {
 
   resetAll() {
     localStorage.clear();
-    ExpSytem.totalXP = 0;
-    ExpSytem.Function.updateXPBar();
+    ExpSystem.Function.setXP(0);
+    this.saveItem("xpTotal", 0);
   },
+  
 
   resetXP() {
     const confirm1 = confirm(
@@ -56,17 +57,18 @@ const LocalSave = {
     if (!confirm1) return;
     const confirm2 = confirm("Êtes-vous VRAIMENT SÛR ?");
     if (!confirm2) return;
-    ExpSytem.totalXP = 0;
-    this.saveItem("xpTotal", ExpSytem.totalXP);
-    ExpSytem.Function.updateXPBar();
+  
+    ExpSystem.Function.setXP(0);
+    this.saveItem("xpTotal", 0);
   },
+  
 
   //fonction autoload qui charge des données au loading de la page
   loadAllSavedData() {
     const savedXP = this.loadItem("xpTotal");
     if (savedXP !== null) {
-      ExpSytem.totalXP = savedXP;
-      ExpSytem.Function.updateXPBar();
+      ExpSystem.Function.setXP(savedXP);
+      this.saveItem("xpTotal", savedXP);
     }
   },
 

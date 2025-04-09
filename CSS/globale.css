@@ -572,12 +572,26 @@ button:hover #clip {
   color: var(--color-flax);
   background-color: var(--color-raisin-black);
   border: none;
+  border-radius: 12px;
 }
 
 .btn:hover {
   cursor: pointer;
   transform: scale(1.1);
   transition: ease-in-out 0.2s;
+}
+
+.disabled-btn {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-small {
+  font-size: 12px;  
+  padding: 0.25em 0.5em; 
+  width: fit-content;
+  animation: pulse 1s infinite;
 }
 
 /*#endregion*/
@@ -661,4 +675,25 @@ button:hover #clip {
     transform: rotate(360deg);
   }
 }
+
+.floating-xp {
+  position: absolute;
+  color: #f8e473;
+  font-weight: bold;
+  animation: floatXP 1s ease-out forwards;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+@keyframes floatXP {
+  0% {
+    opacity: 1;
+    transform: translateY(0px) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-40px) scale(1.2);
+  }
+}
+
 /*#endregion*/

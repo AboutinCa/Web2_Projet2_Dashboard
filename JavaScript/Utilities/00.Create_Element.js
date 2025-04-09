@@ -62,6 +62,7 @@ const CreateElement = {
     parentNode.appendChild(newInput);
     return newInput;
   },
+
   createTextArea(
     id, 
     className, 
@@ -74,7 +75,14 @@ const CreateElement = {
     textArea.placeholder = placeholder;
     parent.appendChild(textArea);
     return textArea;
-  }
+  },
+
+  createElementWithText(tag, text, parent) {
+    const el = document.createElement(tag);
+    el.textContent = text;
+    if (parent) parent.appendChild(el);
+    return el;
+  },
 };
 
 export default CreateElement;

@@ -1,4 +1,5 @@
-import Dashboard from "../Dashboard.js";
+import LocalSave from "../Utilities/01.Local_Save.js";
+
 
 
 /*Le but: 
@@ -10,7 +11,6 @@ import Dashboard from "../Dashboard.js";
 const DEFAULT_LEVEL = 1;
 const DEFAULT_XP = 0;
 let totalXP = DEFAULT_XP;
-
 const Function = {
   
   getNeededXPForLevel(level) {
@@ -37,7 +37,7 @@ const Function = {
 
   addXP(amountXP) {
     totalXP += amountXP;
-    Dashboard.saveItem("xpTotal", totalXP);
+    LocalSave.saveItem("xpTotal", totalXP);
 
     const resultLevel = this.calculateLevel(totalXP);
     console.log(
@@ -65,13 +65,17 @@ const Function = {
     if (bar) {
       bar.style.width = `${percent}%`;
     }
+  },
+  setXP(newXP) {
+    totalXP = newXP;
+    this.updateXPBar();
   }
 }
 
-const ExpSytem = {
+const ExpSystem = {
   Function,
   DEFAULT_XP,
   totalXP
 }
 
-export default ExpSytem;
+export default ExpSystem;

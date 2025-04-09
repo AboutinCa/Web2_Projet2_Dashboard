@@ -1,6 +1,6 @@
-import CreateElement from "../Utilities/Obj_CreateElement.js";
-import Widget_Container from "./0.Widget_Container.js";
-import LocalSave from "../Utilities/Obj_localSave.js";
+import CreateElement from "../Utilities/00.Create_Element.js";
+import Widget_Container from "./00.Widget_Container.js";
+import LocalSave from "../Utilities/01.Local_Save.js";
 
 const Dashboard = document.getElementById("Dashboard");
 const StickyIcon = document.getElementById("StickyNotes");
@@ -59,6 +59,9 @@ let newWidget = () => {
     document.getElementById(`WidgetContent${widgetIndex}`)
   );
 
+  if (!LocalSave.SavedWidgets) {
+    LocalSave.SavedWidgets = [];
+  }
   LocalSave.SavedWidgets.push({ index: widgetIndex, id: widgetId });
   LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
 };

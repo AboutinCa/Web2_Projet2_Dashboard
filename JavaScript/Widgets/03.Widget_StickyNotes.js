@@ -45,27 +45,36 @@ class Widget_StickyNotes {
 
 export default Widget_StickyNotes;
 
-let widgetIndex = 0;
-
 let newWidget = () => {
-  widgetIndex++;
-  let widgetId = `widget${widgetIndex}`;
+  Dashboard.widgetID++; // Incrémenter l’ID central
+  let widgetId = `widget${Dashboard.widgetID}`;
 
-  new Widget_Container(widgetIndex, widgetId, Dashboard, "Sticky Note");
+  new Widget_Container(
+    Dashboard.widgetID,
+    widgetId,
+    Dashboard,
+    "Sticky Note"
+  );
 
   new Widget_StickyNotes(
-    widgetIndex,
+    Dashboard.widgetID,
     widgetId,
-    document.getElementById(`WidgetContent${widgetIndex}`)
+    document.getElementById(`WidgetContent${Dashboard.widgetID}`)
   );
 
   if (!LocalSave.SavedWidgets) {
     LocalSave.SavedWidgets = [];
   }
-  LocalSave.SavedWidgets.push({ index: widgetIndex, id: widgetId });
+
+  LocalSave.SavedWidgets.push({
+    index: Dashboard.widgetID,
+    id: widgetId,
+  });
+
   LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
 };
 
 StickyIcon.addEventListener("click", () => {
   newWidget();
 });
+

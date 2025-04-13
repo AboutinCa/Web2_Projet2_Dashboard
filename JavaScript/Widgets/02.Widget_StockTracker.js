@@ -1,7 +1,8 @@
 import CreateElement from "../Utilities/00.Create_Element.js";
 import Widget_Container from "./00.Widget_Container.js";
-import Dashboard from "../Dashboard.js";
 import LocalSave from "../Utilities/01.Local_Save.js";
+import Dashboard from "../Dashboard.js";
+import Utilities from "../Utilities/00.Widget_Utilities.js";
 
 const DashboardNode = document.getElementById("Dashboard");
 const StockIcon = document.getElementById("StockTracker");
@@ -14,12 +15,13 @@ class Widget_StockTracker {
     this.content = this.createWidget(ParentNode);
   }
 
-  createWidget(parentNode) {
+  createWidget(parent) {
     const container = CreateElement.createDiv(
       `StockContainer${this.index}`,
       "stock-tracker",
-      parentNode
+      parent
     );
+    parent.parentNode.setAttribute("data-type", "stock-widget");
 
     const input = CreateElement.createInput(
       `StockInput${this.index}`,
@@ -32,8 +34,9 @@ class Widget_StockTracker {
 
     const button = CreateElement.createButton(
       `StockButton${this.index}`,
-      "btn",
+      "small-btn",
       "Rechercher",
+      null,
       container
     );
 
@@ -191,27 +194,27 @@ class Widget_StockTracker {
 }
 export default Widget_StockTracker;
 
-let newWidget = () => {
-  Dashboard.widgetID++;
-  let widgetId = `widget${Dashboard.widgetID}`;
+let newStockTracker = () => {
+  Dashboard.widgetIndex++;
+  let widgetId = `widget${Dashboard.widgetIndex}`;
 
   new Widget_Container(
-    Dashboard.widgetID,
+    Dashboard.widgetIndex,
     widgetId,
     DashboardNode,
     "Stock Tracker"
   );
 
-  new Widget_StockTracker(
-    Dashboard.widgetID,
+  const widget = new Widget_StockTracker(
+    Dashboard.widgetIndex,
     widgetId,
-    document.getElementById(`WidgetContent${Dashboard.widgetID}`)
+    document.getElementById(`WidgetContent${Dashboard.widgetIndex}`)
   );
-
-  Dashboard.SavedWidgets.push({ index: Dashboard.widgetID, id: widgetId });
-  LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
 };
 
-StockIcon.addEventListener("click", () => {
-  newWidget();
-});
+let assignEvent = () => {
+  StockIcon.addEventListener("click", () => {
+    newStockTracker();
+  });
+};
+document.addEventListener("DOMContentLoaded", assignEvent);

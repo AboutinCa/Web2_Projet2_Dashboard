@@ -8,14 +8,12 @@
     <link rel="stylesheet" href="/CSS/globale.css">
     <link rel="stylesheet" href="/Css/sidebar.css">
     <link rel="stylesheet" href="/CSS/dashboard.css">
-    <link rel="stylesheet" href="/Css/widget_container.css">
+    <link rel="stylesheet" href="/Css/widgets.css">
+    <script src="https://cdn.jsdelivr.net/npm/interactjs@1.10.27/dist/interact.min.js"></script>
     <script defer type="module" src="/JavaScript/Dashboard.js"></script>
     <script defer type="module" src="/JavaScript/Systems/01.User_Leveling.js"></script>
     <script defer type="module" src="/JavaScript/Systems/02.User_Keybind.js"></script>
     <script defer type="module" src="/JavaScript/Utilities/01.Local_Save.js"></script>
-    <script defer type="module" src="/JavaScript/Widgets/00.Widget_Template.js"></script>
-    <script defer type="module" src="/JavaScript/Widgets/01.Widget_TodoList.js"></script>
-    <script defer type="module" src="/JavaScript/widgets/02.Widget_StockTracker.js"> </script>
     <title>Page d'accueil</title>
 </head>
 <header>
@@ -92,13 +90,13 @@
             <div id="WidgetList">
                 <ul>
                     <li class="widget-icon">
-                        <button id="NewWidget">🪙</button>
+                        <button id="NewWidget" class="w-icon">🪙</button>
                     </li>
                     <li class="widget-icon">
-                        <button id="ToDoList">📜</button>
+                        <button id="ToDoList" class="w-icon">📜</button>
                     </li>
                     <li class="widget-icon">
-                        <button id="StockTracker">💰</button>
+                        <button id="StockTracker" class="w-icon">💰</button>
                     </li>
                     <li class="widget-icon">
                         <button>W</button>

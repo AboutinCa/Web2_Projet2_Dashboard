@@ -1,49 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 /* Source : https://coolors.co/ */
 
-/* CSS HEX /
---raisin-black: #272727ff;
---pacific-cyan: #26a8d3ff;
---vanilla: #d6dbb2ff;
---flax: #e3d985ff;
-
-/ CSS HSL /
---raisin-black: hsla(0, 0%, 15%, 1);
---pacific-cyan: hsla(195, 69%, 49%, 1);
---vanilla: hsla(67, 36%, 78%, 1);
---flax: hsla(54, 63%, 71%, 1);
-
-/ SCSS HEX /
-$raisin-black: #272727ff;
-$pacific-cyan: #26a8d3ff;
-$vanilla: #d6dbb2ff;
-$flax: #e3d985ff;
-
-/ SCSS HSL /
-$raisin-black: hsla(0, 0%, 15%, 1);
-$pacific-cyan: hsla(195, 69%, 49%, 1);
-$vanilla: hsla(67, 36%, 78%, 1);
-$flax: hsla(54, 63%, 71%, 1);
-
-/ SCSS RGB /
-$raisin-black: rgba(39, 39, 39, 1);
-$pacific-cyan: rgba(38, 168, 211, 1);
-$vanilla: rgba(214, 219, 178, 1);
-$flax: rgba(227, 217, 133, 1);
-
-/ SCSS Gradient */
-/*
-$gradient-top: linear-gradient(0deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-right: linear-gradient(90deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-bottom: linear-gradient(180deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-left: linear-gradient(270deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-top-right: linear-gradient(45deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-bottom-right: linear-gradient(135deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-top-left: linear-gradient(225deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-bottom-left: linear-gradient(315deg, #272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-$gradient-radial: radial-gradient(#272727ff, #26a8d3ff, #d6dbb2ff, #e3d985ff);
-*/
-
 /*
 Exemple de bouton cool à insérer 
 https://uiverse.io/Galahhad/ancient-emu-61
@@ -120,125 +77,100 @@ https://uiverse.io/Galahhad/ancient-emu-61
 .hidden {
   display: none;
 }
-
 .width100 {
   width: 100%;
 }
-
 .small-padding-y {
   padding: 0.25em 0;
 }
-
 .small-padding-x {
   padding: 0 0.25em;
 }
-
+.opactity100 {
+  opacity: 1;
+}
 .opacity50 {
   opacity: 0.5;
 }
-
 .text-xxl {
   font-size: var(--font-size-xxlarge);
   margin: 1rem 2rem;
 }
-
 .text-xl {
   font-size: var(--font-size-xlarge);
   margin-bottom: 1.5rem;
 }
-
 .text-large {
   font-size: var(--font-size-large);
 }
-
 .text-medium {
   font-size: var(--font-size-medium);
   margin-bottom: 1rem;
 }
-
 .text-small {
   font-size: var(--font-size-small);
 }
-
 .text-xsmall {
   font-size: var(--font-size-xsmall);
 }
-
 .italic {
   font-style: italic;
 }
-
 .text-center {
   text-align: center;
   align-items: center;
 }
-
 .display-none {
   display: none;
 }
-
 .flex-column {
   display: flex;
   flex-direction: column;
 }
-
 .flex-row {
   display: flex;
   flex-direction: row;
 }
-
 .justify-center {
   justify-content: center;
 }
-
 .justify-between {
   justify-content: space-between;
 }
-
 .justify-evenly {
   justify-content: space-evenly;
 }
-
 .justify-right {
   justify-content: right;
 }
-
 .align-center {
   justify-content: center;
   align-items: center;
 }
-
 .self-center {
   align-self: center;
 }
-
 .wrap {
   flex-wrap: wrap;
 }
-
 .color-raisinblack {
   color: var(--color-raisin-black);
 }
-
 .color-grey {
   color: var(--color-grey);
 }
 .background-grey {
   background-color: var(--color-grey);
 }
-
 .color-cyan {
   color: var(--color-cyan);
 }
-
 .color-vanilla {
   color: var(--color-vanilla);
 }
-
 .color-flax {
   color: var(--color-flax);
 }
-
 .color-green {
   color: var(--color-green);
 }
@@ -561,6 +493,25 @@ button:hover #clip {
 }
 /*#endregion*/
 
+.small-btn {
+  width: fit-content;
+  opacity: 1;
+  padding: 0.125em;
+
+  font-size: var(--font-size-xsmall);
+  text-align: center;
+  text-decoration: none;
+
+  color: var(--color-flax);
+  background-color: var(--color-raisin-black);
+  border: none;
+}
+
+.small-btn:hover {
+  cursor: pointer;
+  opacity: 1;
+}
+
 .btn {
   width: fit-content;
   padding: 0.25em;
@@ -645,4 +596,5 @@ button:hover #clip {
     border: 2px inset #ff0000bb;
   }
 }
+
 /*#endregion*/

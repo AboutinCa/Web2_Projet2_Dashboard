@@ -12,6 +12,9 @@ class Widget_Template {
     this.id = Id;
     this.save;
 
+    this.width = "fit-content";
+    this.height = "fit-content";
+
     this.Content = this.createWidget(ParentNode);
   }
 

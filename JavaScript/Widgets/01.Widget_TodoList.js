@@ -1,7 +1,8 @@
 import CreateElement from "../Utilities/00.Create_Element.js";
 import Widget_Container from "./00.Widget_Container.js";
-import Dashboard from "../Dashboard.js";
 import LocalSave from "../Utilities/01.Local_Save.js";
+import Dashboard from "../Dashboard.js";
+import Utilities from "../Utilities/00.Widget_Utilities.js";
 
 const DashboardNode = document.getElementById("Dashboard");
 const TDListIcon = document.getElementById("ToDoList");
@@ -20,22 +21,20 @@ class Widget_ToDoList {
   constructor(Index, Id, ParentNode) {
     this.index = Index;
     this.id = Id;
-    // TODO this.width;
-    // TODO this.height;
-
     this.Content = this.createWidget(ParentNode);
   }
 
   /**
    * Function that add HTLM/CSS/JS as a To-do list widget to the dashboard.
-   * @param parentNode This is the parentNode when our widget will be inserted.
+   * @param parent This is the parentNode when our widget will be inserted.
    */
-  createWidget(parentNode) {
+  createWidget(parent) {
     const TDlist = CreateElement.createDiv(
       `TDList${this.index}`,
       "todo-list",
-      parentNode
+      parent
     );
+    parent.parentNode.setAttribute("data-type", "todolist-widget");
 
     //#region HeaderDiv
     const TDHeaderDiv = CreateElement.createDiv(
@@ -188,31 +187,31 @@ export default Widget_ToDoList;
  * @module Widget_Template
  */
 //#region CreateEvent
-let newWidget = () => {
-  Dashboard.widgetID++;
-  let widgetId = `widget${Dashboard.widgetID}`;
+
+let addTodoList = () => {
+  Dashboard.widgetIndex++;
+  let containerId = `Widget${Dashboard.widgetIndex}`;
+  let widgetId = `TodoList${Dashboard.widgetIndex}`;
 
   new Widget_Container(
-    Dashboard.widgetID,
-    widgetId,
+    Dashboard.widgetIndex,
+    containerId,
     DashboardNode,
     "To-do list"
   );
 
-  new Widget_ToDoList(
-    Dashboard.widgetID,
-    widgetId,
-    document.getElementById(`WidgetContent${Dashboard.widgetID}`)
+  const Content = document.getElementById(
+    `WidgetContent${Dashboard.widgetIndex}`
   );
-
-  // Je "push" mon widget dans mon "savedWidgets" globale pour la sauvegarde future
-  Dashboard.SavedWidgets.push({ index: Dashboard.widgetID, id: widgetId });
-
-  // Sauvegarde de mon widget
-  LocalSave.saveItem("widgetID", Dashboard.widgetID);
-  LocalSave.saveItem("Widgets", Dashboard.SavedWidgets);
+  new Widget_ToDoList(Dashboard.widgetIndex, widgetId, Content);
 };
+
 //#endregion
-TDListIcon.addEventListener("click", () => {
-  newWidget();
-});
+
+let assignEvent = () => {
+  TDListIcon.addEventListener("click", () => {
+    addTodoList();
+    LocalSave.saveDashboard();
+  });
+};
+document.addEventListener("DOMContentLoaded", assignEvent);

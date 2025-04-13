@@ -1,6 +1,9 @@
+import Dashboard from "../Dashboard.js";
 import ExpSytem from "../Systems/01.User_Leveling.js";
 import Widget_Container from "../Widgets/00.Widget_Container.js";
 import Widget_ToDoList from "../Widgets/01.Widget_TodoList.js";
+import Widget_StockTracker from "../Widgets/02.Widget_StockTracker.js";
+import Utilities from "./00.Widget_Utilities.js";
 
 const DashboardNode = document.getElementById("Dashboard");
 
@@ -19,18 +22,13 @@ const LocalSave = {
     localStorage.setItem(key, JSON.stringify(value));
   },
 
-  loadWidgetID(key) {
-    const ID = localStorage.getItem(key);
-    return ID ? JSON.parse(ID) : null;
-  },
-
-  loadItem(key) {
+  loadLocalStorageKey(key) {
     const value = localStorage.getItem(key);
     //if value existe, then JSON.parse, sinon null
     return value ? JSON.parse(value) : null;
   },
 
-  loadWidget(key) {
+  loadWidgetArray(key) {
     const widgetData = localStorage.getItem(key);
     return widgetData ? JSON.parse(widgetData) : [];
   },
@@ -62,35 +60,86 @@ const LocalSave = {
   },
 
   //fonction autoload qui charge des données au loading de la page
-  loadAllSavedData() {
-    const savedXP = this.loadItem("xpTotal");
+  loadTotalXp() {
+    const savedXP = this.loadLocalStorageKey("xpTotal");
     if (savedXP !== null) {
       ExpSytem.totalXP = savedXP;
       ExpSytem.Function.updateXPBar();
     }
   },
 
+  saveDashboard() {
+    const Board = document.getElementById("Dashboard");
+    Dashboard.SavedWidgets = [];
+    Dashboard.widgetIndex = 0;
+
+    Array.from(Board?.children).forEach(widget => {
+      Dashboard.widgetIndex++;
+      Dashboard.SavedWidgets.push({
+        index: Dashboard.widgetIndex,
+        id: `Widget${Dashboard.widgetIndex}`,
+        type: Utilities.GetType(widget),
+        width: Utilities.GetWidth(widget),
+        height: Utilities.GetHeight(widget),
+        posX: Utilities.GetPosX(widget),
+        posY: Utilities.GetPosY(widget),
+        content: widget.innerHTML,
+      });
+    });
+
+    LocalSave.saveItem("WidgetID", Dashboard.widgetIndex);
+    LocalSave.saveItem("Widgets", Dashboard.SavedWidgets);
+  },
+
   loadAllWidgets() {
     // TODO Modifier pour que ca load les differents widgets
-    const savedWidgets = this.loadWidget("Widgets");
+    const savedWidgets = this.loadWidgetArray("Widgets");
 
     if (savedWidgets !== null) {
-      const dataArray = [];
+      savedWidgets.forEach(widget => {
+        if (widget.type === "stock-widget") {
+          new Widget_Container(
+            widget.index,
+            widget.id,
+            DashboardNode,
+            "Stock Tracker"
+          );
+          new Widget_StockTracker(
+            widget.index,
+            widget.id,
+            document.getElementById(`Widget${widget.index}`)
+          );
+          const stockContainer = document.getElementById(
+            `StockContainer${widget.index}`
+          ).parentNode;
 
-      dataArray.push(savedWidgets);
+          stockContainer.style.position = "fixed";
+          stockContainer.style.width = widget.width + "px";
+          stockContainer.style.height = widget.height + "px";
+          stockContainer.style.left = widget.posX + "px";
+          stockContainer.style.top = widget.posY + "px";
+        } else if (widget.type === "todolist-widget") {
+          new Widget_Container(
+            widget.index,
+            widget.id,
+            DashboardNode,
+            "To-do list"
+          );
+          new Widget_ToDoList(
+            widget.index,
+            widget.id,
+            document.getElementById(`Widget${widget.index}`)
+          );
+          const widgetTDList = document.getElementById(
+            `TDList${widget.index}`
+          ).parentNode;
 
-      savedWidgets.forEach(element => {
-        new Widget_Container(
-          element.index,
-          element.id,
-          DashboardNode,
-          "Todo List"
-        );
-        new Widget_ToDoList(
-          element.index,
-          element.id,
-          document.getElementById(`WidgetContent${element.index}`)
-        );
+          widgetTDList.style.position = "fixed";
+          widgetTDList.style.width = widget.width + "px";
+          widgetTDList.style.height = widget.height + "px";
+          widgetTDList.style.left = widget.posX + "px";
+          widgetTDList.style.top = widget.posY + "px";
+        }
       });
     }
   },
@@ -98,9 +147,9 @@ const LocalSave = {
 export default LocalSave;
 
 document.addEventListener("DOMContentLoaded", () => {
-  LocalSave.loadAllSavedData();
+  LocalSave.loadTotalXp();
   LocalSave.loadAllWidgets();
-  LocalSave.loadWidgetID("widgetID");
+  LocalSave.loadLocalStorageKey("WidgetID");
 });
 
 // section debug, pour qu'on puisse appeler les fonctions en console

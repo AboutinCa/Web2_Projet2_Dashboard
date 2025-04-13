@@ -1,3 +1,4 @@
+import Utilities from "./Utilities/00.Widget_Utilities.js";
 import LocalSave from "./Utilities/01.Local_Save.js";
 
 // Widgets
@@ -33,9 +34,10 @@ const OpenBoardButton = document.getElementById("OpenBoardButton");
 const CloseModalBtn = document.getElementById("CloseModalBtn");
 const googleInput = document.getElementById("GoogleBar");
 const googleGo = document.getElementById("GoogleGo");
+const board = document.getElementById("Dashboard");
 
 let Dashboard = {
-  widgetID: LocalSave.loadWidgetID("widgetID"),
+  widgetIndex: LocalSave.loadLocalStorageKey("WidgetID"),
   SavedWidgets: [],
 };
 

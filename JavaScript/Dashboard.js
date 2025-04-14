@@ -94,6 +94,17 @@ function submitGoogleSearch() {
     window.open(url, "_blank");
   }
 }
+const clearButton = document.getElementById("ClearLocalStorageButton");
+
+clearButton.addEventListener("click", function () {
+  const confirmation = confirm("Attention : Cette action va supprimer TOUTES tes données sauvegardées.\nEs-tu sûr de vouloir continuer?");
+
+  if (confirmation) {
+    localStorage.clear();
+    location.reload(); // rafraîchit pour appliquer le reset
+  }
+});
+
 //#endregion
 
 export default Dashboard;

@@ -21,7 +21,7 @@ class Widget_StockTracker {
       "stock-tracker",
       parent
     );
-    parent.parentNode.setAttribute("data-type", "stock-widget");
+    parent.setAttribute("data-type", "stock-widget");
 
     const input = CreateElement.createInput(
       `StockInput${this.index}`,
@@ -196,25 +196,27 @@ export default Widget_StockTracker;
 
 let newStockTracker = () => {
   Dashboard.widgetIndex++;
-  let widgetId = `widget${Dashboard.widgetIndex}`;
+  let containerId = `Widget${Dashboard.widgetIndex}`;
+  let widgetId = `Stock${Dashboard.widgetIndex}`;
 
   new Widget_Container(
     Dashboard.widgetIndex,
-    widgetId,
+    containerId,
     DashboardNode,
     "Stock Tracker"
   );
 
-  const widget = new Widget_StockTracker(
+  new Widget_StockTracker(
     Dashboard.widgetIndex,
     widgetId,
-    document.getElementById(`WidgetContent${Dashboard.widgetIndex}`)
+    document.getElementById(`Widget${Dashboard.widgetIndex}`)
   );
 };
 
 let assignEvent = () => {
   StockIcon.addEventListener("click", () => {
     newStockTracker();
+    LocalSave.saveDashboard();
   });
 };
 document.addEventListener("DOMContentLoaded", assignEvent);

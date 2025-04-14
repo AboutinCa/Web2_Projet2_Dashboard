@@ -13,18 +13,20 @@ class Widget_DailyQuote {
     this.container = this.createWidget(ParentNode);
   }
 
-  createWidget(parentNode) {
+  createWidget(parent) {
     const container = CreateElement.createDiv(
-      `QuoteDiv${this.index}`,
+      `QuoteContainer${this.index}`,
       "quote-container",
-      parentNode
+      parent
     );
-    const title = CreateElement.createElementWithText("h3", "😌", container);
+    parent.setAttribute("data-type", "quote-widget");
+
+    CreateElement.createElementWithText("h3", "😌", container);
 
     this.quoteText = CreateElement.createPara(
       `QuoteText${this.index}`,
       "quote-text",
-      "",      
+      "",
       container
     );
 
@@ -34,15 +36,14 @@ class Widget_DailyQuote {
 
   async displayRandomQuote() {
     try {
-      const response = await fetch ("./data/Quotes.json");
+      const response = await fetch("./data/Quotes.json");
       const data = await response.json();
 
       const quotes = data.quotes;
       const randomIndex = Math.floor(Math.random() * quotes.length);
       this.quoteText.textContent = quotes[randomIndex];
-    } 
-    catch (error) {
-      console.error("Erreur de chargement des quotes")
+    } catch (error) {
+      console.error("Erreur de chargement des quotes");
       this.quoteText.textContent = "";
     }
   }
@@ -52,27 +53,27 @@ export default Widget_DailyQuote;
 
 let newWidget = () => {
   Dashboard.widgetID++;
-  let widgetId = `widget${Dashboard.widgetID}`;
+  let containerId = `Widget${Dashboard.widgetIndex}`;
+  let widgetId = `Quote${Dashboard.widgetIndex}`;
 
   new Widget_Container(
-    Dashboard.widgetID,
-    widgetId,
+    Dashboard.widgetIndex,
+    containerId,
     DashboardNode,
     "Quote of the Day"
   );
 
   new Widget_DailyQuote(
-    Dashboard.widgetID,
+    Dashboard.widgetIndex,
     widgetId,
-    document.getElementById(`WidgetContent${Dashboard.widgetID}`)
+    document.getElementById(`Widget${Dashboard.widgetIndex}`)
   );
-
-  if (!LocalSave.SavedWidgets) {
-    LocalSave.SavedWidgets = [];
-  }
-  LocalSave.SavedWidgets.push({index: Dashboard.widgetID, id:widgetId});
-  LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
 };
-DailyQuoteIcon.addEventListener("click", () => {
-  newWidget();
-});
+
+let assignEvent = () => {
+  DailyQuoteIcon.addEventListener("click", () => {
+    newWidget();
+    LocalSave.saveDashboard();
+  });
+};
+document.addEventListener("DOMContentLoaded", assignEvent);

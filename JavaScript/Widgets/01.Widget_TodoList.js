@@ -34,7 +34,7 @@ class Widget_ToDoList {
       "todo-list",
       parent
     );
-    parent.parentNode.setAttribute("data-type", "todolist-widget");
+    parent.setAttribute("data-type", "todolist-widget");
 
     //#region HeaderDiv
     const TDHeaderDiv = CreateElement.createDiv(
@@ -200,10 +200,11 @@ let addTodoList = () => {
     "To-do list"
   );
 
-  const Content = document.getElementById(
-    `WidgetContent${Dashboard.widgetIndex}`
+  new Widget_ToDoList(
+    Dashboard.widgetIndex,
+    widgetId,
+    document.getElementById(`Widget${Dashboard.widgetIndex}`)
   );
-  new Widget_ToDoList(Dashboard.widgetIndex, widgetId, Content);
 };
 
 //#endregion

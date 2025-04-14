@@ -154,7 +154,7 @@ class Widget_Container {
 
       this.ResizeBtn.classList.remove("pulse");
       this.ResizeBtn.classList.add("opacity50");
-      this.ResizeBtn.classList.remove("resizable");
+      widget.classList.remove("resizable");
       this.ResizeBtn.classList.add("hidden");
     };
     this.SaveBtn = CreateElement.createButton(
@@ -166,12 +166,12 @@ class Widget_Container {
     );
     this.SaveBtn.innerHTML = `<span class="material-symbols-outlined">check</span>`;
 
-    // Main content div of the widget
-    this.widgetContentDiv = CreateElement.createDiv(
-      `WidgetContent${this.index}`,
-      `widget-content`,
-      widget
-    );
+    // // Main content div of the widget
+    // this.widgetContentDiv = CreateElement.createDiv(
+    //   `WidgetContent${this.index}`,
+    //   `widget-content`,
+    //   widget
+    // );
     //#endregion
   }
 }

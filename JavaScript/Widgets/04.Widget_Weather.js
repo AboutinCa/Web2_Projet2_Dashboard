@@ -13,17 +13,18 @@ class Widget_Weather {
     this.content = this.createWidget(ParentNode);
   }
 
-  createWidget(parentNode) {
+  createWidget(parent) {
     const container = CreateElement.createDiv(
       `WeatherContainer${this.index}`,
       "weather-widget",
-      parentNode
+      parent
     );
+    parent.setAttribute("data-type", "weather-widget");
 
     const title = document.createElement("h3");
     title.textContent = "Météo actuelle";
     container.appendChild(title);
-    
+
     const input = CreateElement.createInput(
       `WeatherInput${this.index}`,
       "weather-input",
@@ -35,8 +36,9 @@ class Widget_Weather {
 
     const button = CreateElement.createButton(
       `WeatherButton${this.index}`,
-      "btn",
+      "widget-btn color-flax opacity50",
       "Afficher la météo",
+      null,
       container
     );
 
@@ -59,9 +61,9 @@ class Widget_Weather {
     if (lastCity) {
       input.value = lastCity;
       this.getWeatherByCity(lastCity, result);
-    }    
+    }
 
-    input.addEventListener("keydown", (event) => {
+    input.addEventListener("keydown", event => {
       if (event.key === "Enter") {
         event.preventDefault();
         button.click();
@@ -75,7 +77,7 @@ class Widget_Weather {
   async getWeatherByCity(city, result) {
     try {
       localStorage.setItem("LastWeatherCity", city);
-      
+
       result.innerHTML = "";
       const spinner = document.createElement("div");
       spinner.className = "weather-spinner";
@@ -91,20 +93,24 @@ class Widget_Weather {
       const response = await fetch(
         `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&daily=weathercode,temperature_2m_min,temperature_2m_max&timezone=auto`
       );
-      
+
       const data = await response.json();
       const weather = data.current_weather;
 
       const dailyWeather = data.daily.weathercode.slice(1, 7); //jours 1 à 6 (on skip aujourd’hui et j'ignore le jour actuel +7)
       const tempsMin = data.daily.temperature_2m_min.slice(1, 7);
       const tempsMax = data.daily.temperature_2m_max.slice(1, 7);
-      const moyennes = tempsMin.map((min, i) => Math.round((min + tempsMax[i]) / 2)); //moyenne des températures min et max pour un jour donné
+      const moyennes = tempsMin.map((min, i) =>
+        Math.round((min + tempsMax[i]) / 2)
+      ); //moyenne des températures min et max pour un jour donné
 
       const emoji = this.weatherCodeToEmoji(weather.weathercode);
       result.innerHTML = ""; //enlève le spinner
       result.textContent = `${city} ► ${weather.temperature}°C ${emoji}`;
       const dayLabels = this.getNext6DaysLabels().join("    ");
-      const forecastIcons = dailyWeather.map(code => this.weatherCodeToEmoji(code)).join("  ");
+      const forecastIcons = dailyWeather
+        .map(code => this.weatherCodeToEmoji(code))
+        .join("  ");
 
       //tableau météo
       const table = document.createElement("table");
@@ -117,26 +123,26 @@ class Widget_Weather {
       //row1 lettres des jours
       const rowDays = document.createElement("tr");
       this.getNext6DaysLabels().forEach(letter => {
-      const cell = document.createElement("td");
-      cell.textContent = letter;
-      rowDays.appendChild(cell);
+        const cell = document.createElement("td");
+        cell.textContent = letter;
+        rowDays.appendChild(cell);
       });
 
       //row2  emojis
       const rowIcons = document.createElement("tr");
       dailyWeather.forEach(code => {
-      const cell = document.createElement("td");
-      cell.textContent = this.weatherCodeToEmoji(code);
-      rowIcons.appendChild(cell);
+        const cell = document.createElement("td");
+        cell.textContent = this.weatherCodeToEmoji(code);
+        rowIcons.appendChild(cell);
       });
 
       //row3 températures moyennes
       const rowTemps = document.createElement("tr");
       moyennes.forEach(temp => {
-      const cell = document.createElement("td");
-      cell.textContent = `${temp}°C`;
-      cell.style.fontSize = "11px";
-      rowTemps.appendChild(cell);
+        const cell = document.createElement("td");
+        cell.textContent = `${temp}°C`;
+        cell.style.fontSize = "11px";
+        rowTemps.appendChild(cell);
       });
 
       //section d'append
@@ -144,7 +150,6 @@ class Widget_Weather {
       table.appendChild(rowIcons);
       table.appendChild(rowTemps);
       result.appendChild(table);
-
     } catch (error) {
       console.error(error);
       result.textContent = "Erreur lors de la récupération de la météo";
@@ -152,7 +157,11 @@ class Widget_Weather {
   }
 
   async getCoordinates(city) {
-    const geoRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`);
+    const geoRes = await fetch(
+      `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(
+        city
+      )}&count=1`
+    );
     const geoData = await geoRes.json();
     if (geoData && geoData.results && geoData.results.length > 0) {
       return {
@@ -185,16 +194,16 @@ class Widget_Weather {
   }
 }
 
-
 export default Widget_Weather;
 
 let newWidget = () => {
   Dashboard.widgetID++;
-  let widgetId = `widget${Dashboard.widgetID}`;
+  let containerId = `Widget${Dashboard.widgetIndex}`;
+  let widgetId = `Weather${Dashboard.widgetIndex}`;
 
   new Widget_Container(
-    Dashboard.widgetID,
-    widgetId,
+    Dashboard.widgetIndex,
+    containerId,
     DashboardNode,
     "Météo"
   );
@@ -202,13 +211,14 @@ let newWidget = () => {
   new Widget_Weather(
     Dashboard.widgetID,
     widgetId,
-    document.getElementById(`WidgetContent${Dashboard.widgetID}`)
+    document.getElementById(`Widget${Dashboard.widgetIndex}`)
   );
-
-  Dashboard.SavedWidgets.push({ index: Dashboard.widgetID, id: widgetId });
-  LocalSave.saveItem("Widgets", Dashboard.SavedWidgets);
 };
 
-WeatherIcon.addEventListener("click", () => {
-  newWidget();
-});
+let assignEvent = () => {
+  WeatherIcon.addEventListener("click", () => {
+    newWidget();
+    LocalSave.saveDashboard();
+  });
+};
+document.addEventListener("DOMContentLoaded", assignEvent);

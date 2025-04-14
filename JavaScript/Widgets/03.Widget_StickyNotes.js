@@ -2,7 +2,7 @@ import CreateElement from "../Utilities/00.Create_Element.js";
 import Widget_Container from "./00.Widget_Container.js";
 import LocalSave from "../Utilities/01.Local_Save.js";
 
-const Dashboard = document.getElementById("Dashboard");
+const DashboardNode = document.getElementById("Dashboard");
 const StickyIcon = document.getElementById("StickyNotes");
 
 class Widget_StickyNotes {
@@ -13,12 +13,13 @@ class Widget_StickyNotes {
     this.noteKey = `StickyNote_${this.id}`;
   }
 
-  createWidget(parentNode) {
+  createWidget(parent) {
     const container = CreateElement.createDiv(
       `StickyNoteContainer${this.index}`,
       "sticky-note-container",
-      parentNode
+      parent
     );
+    parent.setAttribute("data-type", "stickynote-widget");
 
     const textarea = CreateElement.createTextArea(
       `StickyNoteArea${this.index}`,
@@ -47,34 +48,28 @@ export default Widget_StickyNotes;
 
 let newWidget = () => {
   Dashboard.widgetID++; // Incrémenter l’ID central
-  let widgetId = `widget${Dashboard.widgetID}`;
+  //let widgetId = `widget${Dashboard.widgetID}`;
+  let containerId = `Widget${Dashboard.widgetIndex}`;
+  let widgetId = `StickyNote${Dashboard.widgetIndex}`;
 
   new Widget_Container(
-    Dashboard.widgetID,
-    widgetId,
-    Dashboard,
+    Dashboard.widgetIndex,
+    containerId,
+    DashboardNode,
     "Sticky Note"
   );
 
   new Widget_StickyNotes(
     Dashboard.widgetID,
     widgetId,
-    document.getElementById(`WidgetContent${Dashboard.widgetID}`)
+    document.getElementById(`Widget${Dashboard.widgetIndex}`)
   );
-
-  if (!LocalSave.SavedWidgets) {
-    LocalSave.SavedWidgets = [];
-  }
-
-  LocalSave.SavedWidgets.push({
-    index: Dashboard.widgetID,
-    id: widgetId,
-  });
-
-  LocalSave.saveItem("Widgets", LocalSave.SavedWidgets);
 };
 
-StickyIcon.addEventListener("click", () => {
-  newWidget();
-});
-
+let assignEvent = () => {
+  StickyIcon.addEventListener("click", () => {
+    newWidget();
+    LocalSave.saveDashboard();
+  });
+};
+document.addEventListener("DOMContentLoaded", assignEvent);

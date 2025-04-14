@@ -53,6 +53,21 @@ CloseModalBtn.addEventListener("click", () => {
   MainContainer.classList.remove("hidden");
   googleGo.style.display = "inline-block";
 });
+
+document.addEventListener(
+  "keydown",
+  function (e) {
+    if (e.shiftKey && e.key === "D") {
+      if (Modal.classList.contains("show")) {
+        Modal.classList.remove("show");
+      } else {
+        OpenBoardButton.click();
+      }
+    }
+  },
+  false
+);
+
 //#endregion
 
 //#region Google bar
